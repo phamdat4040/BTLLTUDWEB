@@ -1,0 +1,70 @@
+package com.ltweb.Repository.dondathang;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.ltweb.DTO.Monhang;
+import com.ltweb.DTO.ShoppingCart;
+import com.ltweb.DTO.monhang2;
+import com.ltweb.Service.product_Color.product_ColorService;
+import com.ltweb.Service.product_Size.product_SizeService;
+import com.ltweb.Service.products.productsService;
+import com.ltweb.entity.customers;
+import com.ltweb.entity.dondathang;
+import com.ltweb.entity.product_Color;
+import com.ltweb.entity.product_Size;
+import com.ltweb.entity.products;
+
+@Repository
+public class dondathangRepoImpl implements dondathangRepo{
+
+	@Autowired
+	private SessionFactory sessionFactory;
+
+
+	@Override
+	public void add(customers customers, List<monhang2>list) {
+		try {
+			for (monhang2 monhang : list) {
+				
+				dondathang dondathang = new dondathang(monhang.getProducts().getName(), monhang.getProduct_Size().getSizeName()
+						,  monhang.getProduct_Color().getColorName(), monhang.getSoluong(), monhang.getProducts().getPrice(), customers.getId(), 0);
+				sessionFactory.getCurrentSession().saveOrUpdate(dondathang);
+			}
+			 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<dondathang> getListDonDatHangByCustomerName(Integer name) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			List<dondathang> list = (List<dondathang>)session.createQuery("from dondathang where ordererId = :name", dondathang.class)
+					.setParameter("name", name).list();
+			return list;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<dondathang> getAll() {
+		Session session = sessionFactory.getCurrentSession();
+		List<dondathang> list = (List<dondathang>)session.createQuery("from dondathang", dondathang.class).list();
+		return list;
+	}
+
+	@Override
+	public void add(List<dondathang> list) {
+		Session session = sessionFactory.getCurrentSession();
+		for (dondathang dondathang : list) {
+			session.saveOrUpdate(dondathang);
+		}
+	}
+}

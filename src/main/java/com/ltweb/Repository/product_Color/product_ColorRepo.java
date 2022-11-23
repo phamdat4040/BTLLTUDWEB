@@ -1,0 +1,7 @@
+package com.ltweb.Repository.product_Color;
+
+import com.ltweb.entity.product_Color;
+
+public interface product_ColorRepo {
+	public product_Color getProduct_ColorById(int id);
+}

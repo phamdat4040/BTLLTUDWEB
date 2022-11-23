@@ -1,0 +1,23 @@
+package com.ltweb.Repository.product_Color;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.ltweb.entity.product_Color;
+
+@Repository
+public class product_ColorRepoImpl implements product_ColorRepo {
+
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	@Override
+	public product_Color getProduct_ColorById(int id) {
+		product_Color product_Color = (product_Color) sessionFactory.getCurrentSession()
+				.createQuery("from product_Color where id = :id", product_Color.class).setParameter("id", id)
+				.getSingleResult();
+		return product_Color;
+	}
+
+}

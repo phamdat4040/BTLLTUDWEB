@@ -1,0 +1,38 @@
+package com.ltweb.Repository.admin;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.ltweb.entity.employees;
+
+@Repository
+public class employeesResponImpl implements employeeRespon {
+
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	@Override
+	public List<employees> list() {
+		Session session = sessionFactory.getCurrentSession();
+		List<employees> list = session.createQuery("from employees", employees.class).list();
+		return list;
+	}
+
+	@Override
+	public employees getEmloyees(String user, String pass) {
+		try {
+			employees employee = (employees) sessionFactory.getCurrentSession()
+					.createQuery("from employees where username = :user and password = :pass")
+					.setParameter("user", user).setParameter("pass", pass).getSingleResult();
+			return employee;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+
+}
