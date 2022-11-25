@@ -1,7 +1,5 @@
 package com.ltweb.controller;
 
-import java.awt.print.Printable;
-import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -42,7 +40,7 @@ public class HomeController {
 
 	@GetMapping({ "/", "/shop", "/home" })
 	public ModelAndView shop() {
-		ModelAndView modelAndView = new ModelAndView("shop");
+		ModelAndView modelAndView = new ModelAndView("user/shop");
 		List<categories> listC = categoriesService.list();
 		modelAndView.addObject("listC", listC);
 		products products = productsService.getLastProducts();
@@ -54,7 +52,7 @@ public class HomeController {
 
 	@GetMapping("/detail")
 	public ModelAndView detail(@RequestParam("pid") int pid) {
-		ModelAndView modelAndView = new ModelAndView("user/Detail");
+		ModelAndView modelAndView = new ModelAndView("user/detail");
 		products products = productsService.getProductById(pid);
 		List<categories> listC = categoriesService.list();
 		modelAndView.addObject("listC", listC);
