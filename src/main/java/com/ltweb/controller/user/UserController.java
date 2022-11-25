@@ -38,10 +38,16 @@ public class UserController {
 		return "redirect:/";
 	}
 
+<<<<<<< HEAD:src/main/java/com/ltweb/controller/user/UserController.java
 	@GetMapping({ "/", "/home" })
 	public ModelAndView shop1() {
 		ModelAndView modelAndView = new ModelAndView("user/shop");
 
+=======
+	@GetMapping({ "/", "/shop", "/home" })
+	public ModelAndView shop() {
+		ModelAndView modelAndView = new ModelAndView("user/shop");
+>>>>>>> 999fbd4a9371c4407c29fcb0694ff46b7a78232b:src/main/java/com/ltweb/controller/HomeController.java
 		List<categories> listC = categoriesService.list();
 		modelAndView.addObject("listC", listC);
 		products products = productsService.getLastProducts();
@@ -50,15 +56,21 @@ public class UserController {
 		modelAndView.addObject("listP", listP);
 		return modelAndView;
 	}
-	
-	@GetMapping("/shop")
-	public ModelAndView shop() {
+
+	@GetMapping({ "/product" })
+	public ModelAndView product() {
 		ModelAndView modelAndView = new ModelAndView("user/product");
 		List<products> listFourProducts = productsService.getThreeProducts(0);
 		modelAndView.addObject("listP", listFourProducts);
 		return modelAndView;
 	}
-	
+
+	@GetMapping({ "/about" })
+	public ModelAndView about() {
+		ModelAndView modelAndView = new ModelAndView("user/about");
+		return modelAndView;
+	}
+
 	@GetMapping("/detail")
 	public ModelAndView detail(@RequestParam("pid") int pid) {
 		ModelAndView modelAndView = new ModelAndView("user/detail");

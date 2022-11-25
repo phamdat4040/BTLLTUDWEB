@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+=======
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+>>>>>>> 999fbd4a9371c4407c29fcb0694ff46b7a78232b
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +16,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
+<<<<<<< HEAD
 
 <link rel="icon" type="image/png"
 	href="<c:url value='/resources/images/icons/favicon.png'/>" />
 
+=======
+<link rel="icon" type="image/png'/>"
+	href="<c:url value='/resources/images/icons/favicon.png'/>">
+>>>>>>> 999fbd4a9371c4407c29fcb0694ff46b7a78232b
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/vendor/bootstrap/css/bootstrap.min.css'/>">
@@ -81,7 +92,10 @@
 
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
 						data-filter=".men">Men</button>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 999fbd4a9371c4407c29fcb0694ff46b7a78232b
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">

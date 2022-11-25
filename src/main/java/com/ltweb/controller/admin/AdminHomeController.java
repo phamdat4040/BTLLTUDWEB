@@ -58,7 +58,7 @@ public class AdminHomeController {
 		List<dondathang> getAll = dondathangService.getAll();
 		HashMap<Integer, dondathang_fAdmin> hashMap = new HashMap<Integer, dondathang_fAdmin>();
 		for (dondathang dondathang : getAll) {
-			if(hashMap.isEmpty() || !hashMap.containsKey(dondathang.getOrdererId())) {
+			if (hashMap.isEmpty() || !hashMap.containsKey(dondathang.getOrdererId())) {
 				customers customers = customersService.getCustomersById(dondathang.getOrdererId());
 				customers_info customers_info = customers_infoService.getInfoByUserId(dondathang.getOrdererId());
 				List<dondathang> list = dondathangService.getListDonDatHangByCustomerName(dondathang.getOrdererId());
@@ -66,7 +66,7 @@ public class AdminHomeController {
 				hashMap.put(dondathang.getOrdererId(), dondathang_fAdmin);
 			}
 		}
-		
+
 		modelAndView.addObject("listOrders", hashMap);
 		return modelAndView;
 	}
@@ -120,6 +120,7 @@ public class AdminHomeController {
 		return "redirect:/products";
 	}
 
+<<<<<<< HEAD
 //	@GetMapping("/edit_product")
 //	public ModelAndView editproduct(@RequestParam("pid") int pid) {
 //		ModelAndView modelAndView = new ModelAndView("admin/edit_products");
@@ -133,6 +134,19 @@ public class AdminHomeController {
 //		modelAndView.addObject("listCate", listCate);
 //		return modelAndView;
 //	}
+=======
+	@GetMapping("/edit_product")
+	public ModelAndView editproduct(@RequestParam("pid") int pid) {
+		ModelAndView modelAndView = new ModelAndView("admin/edit_products");
+		products product = (products) productsService.getProductById(pid);
+		modelAndView.addObject("product", product);
+		tg_product_size_color product_size_color = (tg_product_size_color) productsService.getByid(pid);
+		modelAndView.addObject("psizecolor", product_size_color);
+		List<categories> listCate = categoriesService.list();
+		modelAndView.addObject("listCate", listCate);
+		return modelAndView;
+	}
+>>>>>>> 999fbd4a9371c4407c29fcb0694ff46b7a78232b
 
 	@PostMapping("/changeProduct")
 	public String change(@RequestParam("pid") int pid, @RequestParam("name") String name,
