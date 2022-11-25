@@ -50,6 +50,20 @@ public class HomeController {
 		return modelAndView;
 	}
 
+	@GetMapping({ "/product" })
+	public ModelAndView product() {
+		ModelAndView modelAndView = new ModelAndView("user/product");
+		List<products> listP = productsService.getThreeProducts(0);
+		modelAndView.addObject("listP", listP);
+		return modelAndView;
+	}
+
+	@GetMapping({ "/about" })
+	public ModelAndView about() {
+		ModelAndView modelAndView = new ModelAndView("user/about");
+		return modelAndView;
+	}
+
 	@GetMapping("/detail")
 	public ModelAndView detail(@RequestParam("pid") int pid) {
 		ModelAndView modelAndView = new ModelAndView("user/detail");

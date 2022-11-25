@@ -33,7 +33,7 @@
 	<%@ include file='/WEB-INF/views/admin/Navbar.jsp'%>
 	<div class="container mt-5">
 		<div class="row tm-content-row">
-			<div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+			<div class="col-12 tm-block-col">
 				<div class="tm-bg-primary-dark tm-block tm-block-products">
 					<div class="tm-product-table-container">
 						<table class="table table-hover tm-table-small tm-product-table">
@@ -49,12 +49,17 @@
 							</thead>
 							<tbody>
 								<c:forEach items="${listP }" var="listP">
-									<tr >
+									<tr>
 										<th scope="row"></th>
-										<td><a href="edit_product?pid=${listP.id }" style="color: white">${listP.name }</a></td>
-										<td><a href="edit_product?pid=${listP.id }" style="color: white">${listP.description }</a></td>
-										<td><a href="edit_product?pid=${listP.id }" style="color: white">${listP.price }</a></td>
-										<td><img src="<c:url value="/resources/img/${listP.image }"/>" style="width: 50px; height: 50px; margin-left: 10px"></td>
+										<td><a href="edit_product?pid=${listP.id }"
+											style="color: white">${listP.name }</a></td>
+										<td><a href="edit_product?pid=${listP.id }"
+											style="color: white">${listP.description }</a></td>
+										<td><a href="edit_product?pid=${listP.id }"
+											style="color: white">${listP.price }</a></td>
+										<td><img
+											src="<c:url value="/resources/img/${listP.image }"/>"
+											style="width: 50px; height: 50px; margin-left: 10px"></td>
 										<td><a href="delProduct?pid=${listP.id }"
 											class="tm-product-delete-link"> <i
 												class="far fa-trash-alt tm-product-delete-icon"></i>
@@ -68,31 +73,6 @@
 					<a href="add_product"
 						class="btn btn-primary btn-block text-uppercase mb-3">Add new
 						product</a>
-				</div>
-			</div>
-			<div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
-				<div class="tm-bg-primary-dark tm-block tm-block-product-categories">
-					<h2 class="tm-block-title">Product Categories</h2>
-					<div class="tm-product-table-container">
-						<table class="table tm-table-small tm-product-table">
-							<tbody id="addCategory">
-								<c:forEach items="${listC }" var="listCate">
-									<tr>
-										<td class=""><a href="loadPbyC?cid=${listCate.id }" style="color: white">${listCate.name }</a></td>
-										<td class="text-center"><a
-											href="delCate?cid=${listCate.id }"
-											class="tm-product-delete-link" style="color: white"> <i
-												class="far fa-trash-alt tm-product-delete-icon"></i>
-										</a></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
-					<!-- table container -->
-					<button
-						class="btn btn-primary btn-block text-uppercase mb-3 add-more"
-						id="add-more1">Add new category</button>
 				</div>
 			</div>
 		</div>
