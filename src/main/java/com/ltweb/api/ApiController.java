@@ -38,7 +38,7 @@ public class ApiController {
 	@Autowired
 	private dondathangService dondathangService;
 
-	@PostMapping(path = "/loadThreeProducts", produces = "text/plain; charset=UTF-8")
+	@PostMapping(path = "/loadFourProducts", produces = "text/plain; charset=UTF-8")
 	public String getThreeProducts(HttpServletRequest request) {
 		String string = "";
 		int soluong = Integer.parseInt(request.getParameter("soluong"));

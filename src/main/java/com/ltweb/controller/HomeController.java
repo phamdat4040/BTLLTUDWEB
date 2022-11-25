@@ -53,8 +53,8 @@ public class HomeController {
 	@GetMapping({ "/product" })
 	public ModelAndView product() {
 		ModelAndView modelAndView = new ModelAndView("user/product");
-		List<products> listP = productsService.getThreeProducts(0);
-		modelAndView.addObject("listP", listP);
+		List<products> listFourProducts = productsService.getThreeProducts(0);
+		modelAndView.addObject("listP", listFourProducts);
 		return modelAndView;
 	}
 
