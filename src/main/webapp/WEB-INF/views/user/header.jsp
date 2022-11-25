@@ -31,7 +31,7 @@
 					<ul class="main-menu">
 						<li><a href="index.html">Home</a></li>
 
-						<li><a href="product.html">Shop</a></li>
+						<li><a href="shop">Shop</a></li>
 
 						<li class="label1" data-label1="hot"><a
 							href="shoping-cart.html">Features</a></li>

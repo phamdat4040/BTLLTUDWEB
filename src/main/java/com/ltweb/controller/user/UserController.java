@@ -1,4 +1,4 @@
-package com.ltweb.controller;
+package com.ltweb.controller.user;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import com.ltweb.entity.products;
 
 @Controller
 @SessionAttributes("user")
-public class HomeController {
+public class UserController {
 
 	@Autowired
 	private productsService productsService;
@@ -38,15 +38,10 @@ public class HomeController {
 		return "redirect:/";
 	}
 
-<<<<<<< HEAD
 	@GetMapping({ "/", "/home" })
-	public ModelAndView shopp() {
-		ModelAndView modelAndView = new ModelAndView("shop");
-=======
-	@GetMapping({ "/", "/shop", "/home" })
-	public ModelAndView shop() {
+	public ModelAndView shop1() {
 		ModelAndView modelAndView = new ModelAndView("user/shop");
->>>>>>> 67d9185d47f8d92d8c3e1505fd9a48b064fd7e58
+
 		List<categories> listC = categoriesService.list();
 		modelAndView.addObject("listC", listC);
 		products products = productsService.getLastProducts();

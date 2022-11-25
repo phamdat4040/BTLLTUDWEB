@@ -120,19 +120,19 @@ public class AdminHomeController {
 		return "redirect:/products";
 	}
 
-	@GetMapping("/edit_product")
-	public ModelAndView editproduct(@RequestParam("pid") int pid) {
-		ModelAndView modelAndView = new ModelAndView("admin/edit_products");
-		products product = (products) productsService.getProductById(pid);
-		modelAndView.addObject("product", product);
-		categories category = (categories) categoriesService.getCateById(product.getCategory_id());
-		modelAndView.addObject("category", category);
-		tg_product_size_color product_size_color = (tg_product_size_color) productsService.getByid(pid);
-		modelAndView.addObject("psizecolor", product_size_color);
-		List<categories> listCate = categoriesService.list();
-		modelAndView.addObject("listCate", listCate);
-		return modelAndView;
-	}
+//	@GetMapping("/edit_product")
+//	public ModelAndView editproduct(@RequestParam("pid") int pid) {
+//		ModelAndView modelAndView = new ModelAndView("admin/edit_products");
+//		products product = (products) productsService.getProductById(pid);
+//		modelAndView.addObject("product", product);
+//		categories category = (categories) categoriesService.getCateById(product.getCategory_id());
+//		modelAndView.addObject("category", category);
+//		tg_product_size_color product_size_color = (tg_product_size_color) productsService.getByid(pid);
+//		modelAndView.addObject("psizecolor", product_size_color);
+//		List<categories> listCate = categoriesService.list();
+//		modelAndView.addObject("listCate", listCate);
+//		return modelAndView;
+//	}
 
 	@PostMapping("/changeProduct")
 	public String change(@RequestParam("pid") int pid, @RequestParam("name") String name,

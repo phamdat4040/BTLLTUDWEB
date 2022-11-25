@@ -45,8 +45,7 @@ public class ApiController {
 		List<products> list = productsService.getThreeProducts(soluong);
 		for (products products : list) {
 			string += products.getId() + "," + products.getImage() + "," + products.getName() + ","
-					+ products.getDescription() + "," + products.getPrice() + "+";
-
+					+ products.getDescription() + "," + products.getPrice() + "," + products.getGender() + "+";
 		}
 		return string;
 	}
