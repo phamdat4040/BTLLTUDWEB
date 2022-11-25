@@ -37,11 +37,11 @@ public class productsResponImpl implements productsRespon {
 		return product;
 	}
 
-	@Override
-	public void addProduct(String name, int cate_id, String description, String image, float price) {
-		products product = new products(name, cate_id, description, image, price);
-		sessionFactory.getCurrentSession().save(product);
-	}
+//	@Override
+//	public void addProduct(String name, int cate_id, String description, String image, float price) {
+//		products product = new products(name, cate_id, description, image, price);
+//		sessionFactory.getCurrentSession().save(product);
+//	}
 
 	@Override
 	public void updateProduct(int id, String name, int cate_id, String description, String image, float price) {
@@ -62,7 +62,7 @@ public class productsResponImpl implements productsRespon {
 	public List<products> getThreeProducts(int soluong) {
 		Session session = sessionFactory.getCurrentSession();
 		List<products> list = (List<products>) session
-				.createNativeQuery("select * from products limit 3 offset :a", products.class)
+				.createNativeQuery("select * from products limit 4 offset :a", products.class)
 				.setParameter("a", soluong).list();
 //		List<product> list = (List<product>) session.createQuery("from product limit 3", product.class).list();
 		return list;
@@ -118,6 +118,12 @@ public class productsResponImpl implements productsRespon {
 	public void createsizecolor(int id, int sold, int stock, int sizeid, int colorid) {
 		tg_product_size_color size_color = new tg_product_size_color(id, sizeid, colorid, sold, stock);
 		sessionFactory.getCurrentSession().save(size_color);
+	}
+
+	@Override
+	public void addProduct(String name, int cate_id, String description, String image, float price) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

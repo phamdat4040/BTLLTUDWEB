@@ -19,9 +19,6 @@ public class products {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "category_id")
-	private int category_id;
-
 	@Column(name = "description")
 	private String description;
 
@@ -30,14 +27,17 @@ public class products {
 
 	@Column(name = "price")
 	private float price;
+	
+	@Column(name = "gender")
+	private String gender;
 
-	public products(String name, int category_id, String description, String image, float price) {
+	public products(String name, String description, String image, float price, String gender) {
 		super();
 		this.name = name;
-		this.category_id = category_id;
 		this.description = description;
 		this.image = image;
 		this.price = price;
+		this.gender = gender;
 	}
 
 	public products() {
@@ -58,14 +58,6 @@ public class products {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getCategory_id() {
-		return category_id;
-	}
-
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
 	}
 
 	public String getDescription() {
@@ -90,5 +82,13 @@ public class products {
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 }

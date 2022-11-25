@@ -40,8 +40,8 @@ public class HomeController {
 		return "redirect:/";
 	}
 
-	@GetMapping({ "/", "/shop", "/home" })
-	public ModelAndView shop() {
+	@GetMapping({ "/", "/home" })
+	public ModelAndView shopp() {
 		ModelAndView modelAndView = new ModelAndView("shop");
 		List<categories> listC = categoriesService.list();
 		modelAndView.addObject("listC", listC);
@@ -51,7 +51,15 @@ public class HomeController {
 		modelAndView.addObject("listP", listP);
 		return modelAndView;
 	}
-
+	
+	@GetMapping("/shop")
+	public ModelAndView shop() {
+		ModelAndView modelAndView = new ModelAndView("user/product");
+		List<products> listFourProducts = productsService.getThreeProducts(0);
+		modelAndView.addObject("listP", listFourProducts);
+		return modelAndView;
+	}
+	
 	@GetMapping("/detail")
 	public ModelAndView detail(@RequestParam("pid") int pid) {
 		ModelAndView modelAndView = new ModelAndView("user/Detail");
