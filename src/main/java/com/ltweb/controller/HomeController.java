@@ -1,7 +1,5 @@
 package com.ltweb.controller;
 
-import java.awt.print.Printable;
-import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -40,9 +38,15 @@ public class HomeController {
 		return "redirect:/";
 	}
 
+<<<<<<< HEAD
 	@GetMapping({ "/", "/home" })
 	public ModelAndView shopp() {
 		ModelAndView modelAndView = new ModelAndView("shop");
+=======
+	@GetMapping({ "/", "/shop", "/home" })
+	public ModelAndView shop() {
+		ModelAndView modelAndView = new ModelAndView("user/shop");
+>>>>>>> 67d9185d47f8d92d8c3e1505fd9a48b064fd7e58
 		List<categories> listC = categoriesService.list();
 		modelAndView.addObject("listC", listC);
 		products products = productsService.getLastProducts();
@@ -62,7 +66,7 @@ public class HomeController {
 	
 	@GetMapping("/detail")
 	public ModelAndView detail(@RequestParam("pid") int pid) {
-		ModelAndView modelAndView = new ModelAndView("user/Detail");
+		ModelAndView modelAndView = new ModelAndView("user/detail");
 		products products = productsService.getProductById(pid);
 		List<categories> listC = categoriesService.list();
 		modelAndView.addObject("listC", listC);
