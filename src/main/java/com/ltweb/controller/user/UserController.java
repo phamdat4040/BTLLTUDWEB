@@ -38,16 +38,9 @@ public class UserController {
 		return "redirect:/";
 	}
 
-<<<<<<< HEAD:src/main/java/com/ltweb/controller/user/UserController.java
-	@GetMapping({ "/", "/home" })
-	public ModelAndView shop1() {
-		ModelAndView modelAndView = new ModelAndView("user/shop");
-
-=======
 	@GetMapping({ "/", "/shop", "/home" })
 	public ModelAndView shop() {
 		ModelAndView modelAndView = new ModelAndView("user/shop");
->>>>>>> 999fbd4a9371c4407c29fcb0694ff46b7a78232b:src/main/java/com/ltweb/controller/HomeController.java
 		List<categories> listC = categoriesService.list();
 		modelAndView.addObject("listC", listC);
 		products products = productsService.getLastProducts();

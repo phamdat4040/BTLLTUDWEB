@@ -1,5 +1,6 @@
 package com.ltweb.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,6 +48,23 @@ public class ApiController {
 			string += products.getId() + "," + products.getImage() + "," + products.getName() + ","
 					+ products.getDescription() + "," + products.getPrice() + "," + products.getGender() + "+";
 		}
+
+		return string;
+	}
+	
+	@PostMapping("/loadProducts")
+	public String loadProductsForMen(HttpServletRequest request) {
+		String string = "";
+		List<products> list = new ArrayList<products>();
+		int soluong = Integer.parseInt(request.getParameter("num"));
+		String status = request.getParameter("status");
+		list = productsService.listProductForMen(soluong, status);
+		for (products products : list) {
+			string += products.getId() + "," + products.getImage() + "," + products.getName() + ","
+					+ products.getDescription() + "," + products.getPrice() + "," + products.getGender() + "+";
+
+		}
+		System.out.println(string);
 		return string;
 	}
 

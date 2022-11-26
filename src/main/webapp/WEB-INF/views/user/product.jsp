@@ -1,30 +1,16 @@
-<<<<<<< HEAD
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
-=======
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
->>>>>>> 999fbd4a9371c4407c29fcb0694ff46b7a78232b
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>Product</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <!--===============================================================================================-->
-<<<<<<< HEAD
-
 <link rel="icon" type="image/png"
 	href="<c:url value='/resources/images/icons/favicon.png'/>" />
-
-=======
-<link rel="icon" type="image/png'/>"
-	href="<c:url value='/resources/images/icons/favicon.png'/>">
->>>>>>> 999fbd4a9371c4407c29fcb0694ff46b7a78232b
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/vendor/bootstrap/css/bootstrap.min.css'/>">
@@ -84,18 +70,14 @@
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<button
-						class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1"
-						data-filter="*">All Products</button>
+						class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" id="all"
+						onclick="change()">All Products</button>
 
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-						data-filter=".women">Women</button>
+						id="women" onclick="loadProductByGender(this.id)">Women</button>
 
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-						data-filter=".men">Men</button>
-<<<<<<< HEAD
-
-=======
->>>>>>> 999fbd4a9371c4407c29fcb0694ff46b7a78232b
+						id="men" onclick="loadProductByGender(this.id)">Men</button>
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">
@@ -242,6 +224,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="col-sm-12">
 				<div class="row" id="data">
 					<c:forEach var="s" items="${listP }">
@@ -258,7 +241,7 @@
 
 								<div class="block2-txt flex-w flex-t p-t-14">
 									<div class="block2-txt-child1 flex-col-l ">
-										<a href="#"
+										<a href="#" id="${s.id }"
 											class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 											${s.name } </a> <span class="stext-105 cl3"> $${s.price }
 										</span>
@@ -280,13 +263,11 @@
 						</div>
 					</c:forEach>
 				</div>
-
-				<!-- Load more -->
-				<div class="flex-c-m flex-w w-full p-t-45">
-					<a onclick="loadMore()" type="button" id="loadmore"
-						class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-						Load More </a>
-				</div>
+			</div>
+			<div class="flex-c-m flex-w w-full p-t-45">
+				<a onclick="loadMore(this.id)" type="button" id="loadmore"
+					class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+					Load More </a>
 			</div>
 		</div>
 	</div>
@@ -424,21 +405,154 @@
 	var soluong = 0;
 	function loadMore(){
 		soluong = soluong + 4;
+		if(sex == "" ){
+			$.ajax({
+		        type: "POST",
+		        data:{
+		        	soluong: soluong,
+		        },
+		        url: "http://localhost:8080/BTLLTUDWEB/loadFourProducts",
+	 	        success: function(res) {
+	 	        	var data = document.getElementById("data");
+	 	        	if(res != ""){
+	 	        		res = res.substr(0, res.length - 1);
+	 		            var str = res.split("+");
+	        			for(let stringg of str){
+	 		            	var pro = stringg.split(",");
+	 		            	data.innerHTML +="<div class=\"col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item "+pro[5]+"\">\r\n"
+	 		       			+ "						<!-- Block2 -->\r\n"
+	 		   			+ "						<div class=\"block2\">\r\n"
+	 		   			+ "							<div class=\"block2-pic hov-img0\">\r\n"
+	 		   			+ "								<img src=\"<c:url value='/resources/images/"+pro[1]+"'/>\"\r\n"
+	 		   			+ "									alt=\"IMG-PRODUCT\"> <a href=\"#\"\r\n"
+	 		   			+ "									class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">\r\n"
+	 		   			+ "									Quick View </a>\r\n"
+	 		   			+ "							</div>\r\n"
+	 		   			+ "\r\n"
+	 		   			+ "							<div class=\"block2-txt flex-w flex-t p-t-14\">\r\n"
+	 		   			+ "								<div class=\"block2-txt-child1 flex-col-l \">\r\n"
+	 		   			+ "									<a href=\"#\"\r\n"
+	 		   			+ "										class=\"stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6\">\r\n"
+	 		   			+ "										"+pro[2]+" </a> <span class=\"stext-105 cl3\"> $"+pro[4]+" </span>\r\n"
+	 		   			+ "								</div>\r\n"
+	 		   			+ "\r\n"
+	 		   			+ "								<div class=\"block2-txt-child2 flex-r p-t-3\">\r\n"
+	 		   			+ "									<a href=\"#\"\r\n"
+	 		   			+ "										class=\"btn-addwish-b2 dis-block pos-relative js-addwish-b2\">\r\n"
+	 		   			+ "										<img class=\"icon-heart1 dis-block trans-04\"\r\n"
+	 		   			+ "										src=\"<c:url value='/resources/images/icons/icon-heart-01.png'/>\"\r\n"
+	 		   			+ "										alt=\"ICON\"> <img\r\n"
+	 		   			+ "										class=\"icon-heart2 dis-block trans-04 ab-t-l\"\r\n"
+	 		   			+ "										src=\"<c:url value='/resources/images/icons/icon-heart-02.png'/>\"\r\n"
+	 		   			+ "										alt=\"ICON\">\r\n"
+	 		   			+ "									</a>\r\n"
+	 		   			+ "								</div>\r\n"
+	 		   			+ "							</div>\r\n"
+	 		   			+ "						</div>\r\n"
+	 		   			+ "					</div>";
+	 		            }
+	 	        	}
+	 	        	else{
+	 	        		document.getElementById("loadmore").style.display = 'none';
+	 	        		data.innerHTML += "<p style=\"margin-left: 500px; color: red; font-size: 20px\">Không còn sản phẩm nào !!</p>";
+	 	        	}
+		    	},
+				error: function(xhr){
+					alert("Loi");
+				}
+			});
+		}
+		else{
+			$.ajax({
+		        type: "POST",
+		        data:{
+		        	num: soluong,
+		        	status: sex
+		        },
+		        url: "http://localhost:8080/BTLLTUDWEB/loadProducts",
+	 	        success: function(res) {
+	 	        	var data = document.getElementById("data");
+	 	        	if(res != ""){
+	 	        		res = res.substr(0, res.length - 1);
+	 		            var str = res.split("+");
+	        			for(let stringg of str){
+	 		            	var pro = stringg.split(",");
+	 		            	data.innerHTML +="<div class=\"col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item "+pro[5]+"\">\r\n"
+	 		       			+ "						<!-- Block2 -->\r\n"
+	 		   			+ "						<div class=\"block2\">\r\n"
+	 		   			+ "							<div class=\"block2-pic hov-img0\">\r\n"
+	 		   			+ "								<img src=\"<c:url value='/resources/images/"+pro[1]+"'/>\"\r\n"
+	 		   			+ "									alt=\"IMG-PRODUCT\"> <a href=\"#\"\r\n"
+	 		   			+ "									class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">\r\n"
+	 		   			+ "									Quick View </a>\r\n"
+	 		   			+ "							</div>\r\n"
+	 		   			+ "\r\n"
+	 		   			+ "							<div class=\"block2-txt flex-w flex-t p-t-14\">\r\n"
+	 		   			+ "								<div class=\"block2-txt-child1 flex-col-l \">\r\n"
+	 		   			+ "									<a href=\"#\"\r\n"
+	 		   			+ "										class=\"stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6\">\r\n"
+	 		   			+ "										"+pro[2]+" </a> <span class=\"stext-105 cl3\"> $"+pro[4]+" </span>\r\n"
+	 		   			+ "								</div>\r\n"
+	 		   			+ "\r\n"
+	 		   			+ "								<div class=\"block2-txt-child2 flex-r p-t-3\">\r\n"
+	 		   			+ "									<a href=\"#\"\r\n"
+	 		   			+ "										class=\"btn-addwish-b2 dis-block pos-relative js-addwish-b2\">\r\n"
+	 		   			+ "										<img class=\"icon-heart1 dis-block trans-04\"\r\n"
+	 		   			+ "										src=\"<c:url value='/resources/images/icons/icon-heart-01.png'/>\"\r\n"
+	 		   			+ "										alt=\"ICON\"> <img\r\n"
+	 		   			+ "										class=\"icon-heart2 dis-block trans-04 ab-t-l\"\r\n"
+	 		   			+ "										src=\"<c:url value='/resources/images/icons/icon-heart-02.png'/>\"\r\n"
+	 		   			+ "										alt=\"ICON\">\r\n"
+	 		   			+ "									</a>\r\n"
+	 		   			+ "								</div>\r\n"
+	 		   			+ "							</div>\r\n"
+	 		   			+ "						</div>\r\n"
+	 		   			+ "					</div>";
+	 		            }
+	 	        	}
+	 	        	else{
+	 	        		document.getElementById("loadmore").style.display = 'none';
+	 	        		data.innerHTML += "<p style=\"margin-left: 500px; color: red; font-size: 20px\">Không còn sản phẩm nào !!</p>";
+	 	        	}
+		    	},
+				error: function(xhr){
+					alert("Loi");
+				}
+			});
+		}
+	}
+	
+	var s = "loadmore";
+	var sex = "";
+	function loadProductByGender(y){
+		soluong = 0;
+		sex = y;
+		let id = document.getElementById(s);
+		if(y == "men"){
+			s = "loadMore_Men";
+		}
+		else{
+			if(y == "women"){
+				s = "loadMore_Women";
+			}
+		}
+		id.id = s;
 		$.ajax({
 	        type: "POST",
 	        data:{
-	        	soluong: soluong
+	        	num: soluong,
+	        	status: y
 	        },
-	        url: "http://localhost:8080/BTLLTUDWEB/loadFourProducts",
+	        url: "http://localhost:8080/BTLLTUDWEB/loadProducts",
  	        success: function(res) {
  	        	var data = document.getElementById("data");
  	        	if(res != ""){
- 	        		
- 		            res = res.substr(0, res.length - 1);
+ 	        		var tam = "";
+ 	        		res = res.substr(0, res.length - 1);
  		            var str = res.split("+");
- 		            for(let stringg of str){
+        			for(let stringg of str){
  		            	var pro = stringg.split(",");
- 		            	data.innerHTML +="<div class=\"col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item "+pro[5]+"\">\r\n"
+ 		            	tam += "<div class=\"col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item "+pro[5]+"\">\r\n"
  		       			+ "						<!-- Block2 -->\r\n"
  		   			+ "						<div class=\"block2\">\r\n"
  		   			+ "							<div class=\"block2-pic hov-img0\">\r\n"
@@ -470,7 +584,69 @@
  		   			+ "						</div>\r\n"
  		   			+ "					</div>";
  		            }
- 		             
+        			data.innerHTML = tam;
+ 	        	}
+ 	        	else{
+ 	        		document.getElementById(s).style.display = 'none';
+ 	        		data.innerHTML += "<p style=\"margin-left: 500px; color: red; font-size: 20px\">Không còn sản phẩm nào !!</p>";
+ 	        	}
+	    	},
+			error: function(xhr){
+				alert("Loi");
+			}
+		});
+	}
+	
+	function change(){
+		sex = "";
+		soluong = 0;
+		$.ajax({
+	        type: "POST",
+	        data:{
+	        	soluong: soluong,
+	        },
+	        url: "http://localhost:8080/BTLLTUDWEB/loadFourProducts",
+ 	        success: function(res) {
+ 	        	var data = document.getElementById("data");
+ 	        	if(res != ""){
+ 	        		var tam = "";
+ 	        		res = res.substr(0, res.length - 1);
+ 		            var str = res.split("+");
+        			for(let stringg of str){
+ 		            	var pro = stringg.split(",");
+ 		            	tam +="<div class=\"col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item "+pro[5]+"\">\r\n"
+ 		       			+ "						<!-- Block2 -->\r\n"
+ 		   			+ "						<div class=\"block2\">\r\n"
+ 		   			+ "							<div class=\"block2-pic hov-img0\">\r\n"
+ 		   			+ "								<img src=\"<c:url value='/resources/images/"+pro[1]+"'/>\"\r\n"
+ 		   			+ "									alt=\"IMG-PRODUCT\"> <a href=\"#\"\r\n"
+ 		   			+ "									class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">\r\n"
+ 		   			+ "									Quick View </a>\r\n"
+ 		   			+ "							</div>\r\n"
+ 		   			+ "\r\n"
+ 		   			+ "							<div class=\"block2-txt flex-w flex-t p-t-14\">\r\n"
+ 		   			+ "								<div class=\"block2-txt-child1 flex-col-l \">\r\n"
+ 		   			+ "									<a href=\"#\"\r\n"
+ 		   			+ "										class=\"stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6\">\r\n"
+ 		   			+ "										"+pro[2]+" </a> <span class=\"stext-105 cl3\"> $"+pro[4]+" </span>\r\n"
+ 		   			+ "								</div>\r\n"
+ 		   			+ "\r\n"
+ 		   			+ "								<div class=\"block2-txt-child2 flex-r p-t-3\">\r\n"
+ 		   			+ "									<a href=\"#\"\r\n"
+ 		   			+ "										class=\"btn-addwish-b2 dis-block pos-relative js-addwish-b2\">\r\n"
+ 		   			+ "										<img class=\"icon-heart1 dis-block trans-04\"\r\n"
+ 		   			+ "										src=\"<c:url value='/resources/images/icons/icon-heart-01.png'/>\"\r\n"
+ 		   			+ "										alt=\"ICON\"> <img\r\n"
+ 		   			+ "										class=\"icon-heart2 dis-block trans-04 ab-t-l\"\r\n"
+ 		   			+ "										src=\"<c:url value='/resources/images/icons/icon-heart-02.png'/>\"\r\n"
+ 		   			+ "										alt=\"ICON\">\r\n"
+ 		   			+ "									</a>\r\n"
+ 		   			+ "								</div>\r\n"
+ 		   			+ "							</div>\r\n"
+ 		   			+ "						</div>\r\n"
+ 		   			+ "					</div>";
+ 		            }
+        			data.innerHTML = tam;
  	        	}
  	        	else{
  	        		document.getElementById("loadmore").style.display = 'none';
@@ -480,7 +656,6 @@
 			error: function(xhr){
 				alert("Loi");
 			}
-	    	
 		});
 	}
 	</script>
