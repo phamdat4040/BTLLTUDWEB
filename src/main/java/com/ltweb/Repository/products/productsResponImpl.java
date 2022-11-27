@@ -44,12 +44,11 @@ public class productsResponImpl implements productsRespon {
 //	}
 
 	@Override
-	public void updateProduct(int id, String name, int cate_id, String description, String image, float price) {
+	public void updateProduct(int id, String name, String description, String image, float price) {
 		sessionFactory.getCurrentSession().createQuery(
-				"update products set name =:name, category_id=:cate_id, description=:description, image=:image, price=:price where id=:id")
-				.setParameter("id", id).setParameter("name", name).setParameter("cate_id", cate_id)
-				.setParameter("description", description).setParameter("image", image).setParameter("price", price)
-				.executeUpdate();
+				"update products set name =:name, description=:description, image=:image, price=:price where id=:id")
+				.setParameter("id", id).setParameter("name", name).setParameter("description", description)
+				.setParameter("image", image).setParameter("price", price).executeUpdate();
 	}
 
 	@Override
@@ -121,9 +120,9 @@ public class productsResponImpl implements productsRespon {
 	}
 
 	@Override
-	public void addProduct(String name, int cate_id, String description, String image, float price) {
-		// TODO Auto-generated method stub
-		
+	public void addProduct(String name, String description, String image, float price, String gender) {
+		products product = new products(name, description, image, price, gender);
+		sessionFactory.getCurrentSession().save(product);
 	}
 
 	@Override
@@ -131,11 +130,8 @@ public class productsResponImpl implements productsRespon {
 		Session session = sessionFactory.getCurrentSession();
 		List<products> list = (List<products>) session
 				.createNativeQuery("select * from products where gender = :t limit 4 offset :a", products.class)
-				.setParameter("t", status)
-				.setParameter("a", soluong).list();
+				.setParameter("t", status).setParameter("a", soluong).list();
 		return list;
 	}
-
-
 
 }

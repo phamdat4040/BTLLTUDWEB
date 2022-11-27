@@ -15,9 +15,9 @@ public interface productsService {
 
 	public products getLastProducts();
 
-	void addProducts(String name, int cate_id, String description, String image, float price);
+	void addProducts(String name, String description, String image, float price, String gender);
 
-	void updateProduct(int id, String name, int cate_id, String description, String image, float price);
+	void updateProduct(int id, String name, String description, String image, float price);
 
 	public List<products> getThreeProducts(int soluong);
 
@@ -30,6 +30,7 @@ public interface productsService {
 	void updatesizecolor(int id, int sold, int stock, int sizeid, int colorid);
 
 	public List<products> searchProducts(String txt);
+
 	public List<products> listProductForMen(int soluong, String status);
 
 }

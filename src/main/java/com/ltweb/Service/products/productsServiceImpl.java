@@ -34,13 +34,13 @@ public class productsServiceImpl implements productsService {
 	}
 
 	@Override
-	public void addProducts(String name, int cate_id, String description, String image, float price) {
-		productsRespon.addProduct(name, cate_id, description, image, price);
+	public void addProducts(String name, String description, String image, float price, String gender) {
+		productsRespon.addProduct(name, description, image, price, gender);
 	}
 
 	@Override
-	public void updateProduct(int id, String name, int cate_id, String description, String image, float price) {
-		productsRespon.updateProduct(id, name, cate_id, description, image, price);
+	public void updateProduct(int id, String name, String description, String image, float price) {
+		productsRespon.updateProduct(id, name, description, image, price);
 	}
 
 	@Override
