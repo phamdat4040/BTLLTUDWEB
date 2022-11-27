@@ -26,7 +26,6 @@ import com.ltweb.entity.customers_info;
 import com.ltweb.entity.dondathang;
 import com.ltweb.entity.employees;
 import com.ltweb.entity.products;
-import com.ltweb.entity.tg_product_size_color;
 
 @Controller
 @SessionAttributes("user")
@@ -120,17 +119,17 @@ public class AdminHomeController {
 		return "redirect:/products";
 	}
 
-	@GetMapping("/edit_product")
-	public ModelAndView editproduct(@RequestParam("pid") int pid) {
-		ModelAndView modelAndView = new ModelAndView("admin/edit_products");
-		products product = (products) productsService.getProductById(pid);
-		modelAndView.addObject("product", product);
-		tg_product_size_color product_size_color = (tg_product_size_color) productsService.getByid(pid);
-		modelAndView.addObject("psizecolor", product_size_color);
-		List<categories> listCate = categoriesService.list();
-		modelAndView.addObject("listCate", listCate);
-		return modelAndView;
-	}
+//	@GetMapping("/edit_product")
+//	public ModelAndView editproduct(@RequestParam("pid") int pid) {
+//		ModelAndView modelAndView = new ModelAndView("admin/edit_products");
+//		products product = (products) productsService.getProductById(pid);
+//		modelAndView.addObject("product", product);
+//		tg_product_size_color product_size_color = (tg_product_size_color) productsService.getByid(pid);
+//		modelAndView.addObject("psizecolor", product_size_color);
+//		List<categories> listCate = categoriesService.list();
+//		modelAndView.addObject("listCate", listCate);
+//		return modelAndView;
+//	}
 
 	@PostMapping("/changeProduct")
 	public String change(@RequestParam("pid") int pid, @RequestParam("name") String name,

@@ -80,4 +80,9 @@ public class productsServiceImpl implements productsService {
 
 	}
 
+	@Override
+	public List<products> listProductForMen(int soluong, String status) {
+		return productsRespon.listProductForMen(soluong, status);
+	}
+
 }

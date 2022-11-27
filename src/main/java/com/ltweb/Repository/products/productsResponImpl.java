@@ -126,4 +126,16 @@ public class productsResponImpl implements productsRespon {
 		
 	}
 
+	@Override
+	public List<products> listProductForMen(int soluong, String status) {
+		Session session = sessionFactory.getCurrentSession();
+		List<products> list = (List<products>) session
+				.createNativeQuery("select * from products where gender = :t limit 4 offset :a", products.class)
+				.setParameter("t", status)
+				.setParameter("a", soluong).list();
+		return list;
+	}
+
+
+
 }

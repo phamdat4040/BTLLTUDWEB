@@ -30,4 +30,6 @@ public interface productsService {
 	void updatesizecolor(int id, int sold, int stock, int sizeid, int colorid);
 
 	public List<products> searchProducts(String txt);
+	public List<products> listProductForMen(int soluong, String status);
+
 }

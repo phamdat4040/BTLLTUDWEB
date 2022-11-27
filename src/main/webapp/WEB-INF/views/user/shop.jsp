@@ -59,9 +59,6 @@
 	<%@ include file="/WEB-INF/views/user/header.jsp"%>
 	<!-- Cart -->
 	<%@ include file="/WEB-INF/views/user/cart.jsp"%>
-
-
-
 	<!-- Slider -->
 	<section class="section-slide">
 		<div class="wrap-slick1">

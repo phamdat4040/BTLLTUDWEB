@@ -1,4 +1,4 @@
-package com.ltweb.controller;
+package com.ltweb.controller.user;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import com.ltweb.entity.products;
 
 @Controller
 @SessionAttributes("user")
-public class HomeController {
+public class UserController {
 
 	@Autowired
 	private productsService productsService;
