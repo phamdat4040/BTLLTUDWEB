@@ -21,6 +21,8 @@ import com.ltweb.DTO.dondathang_fAdmin;
 import com.ltweb.DTO.monhang2;
 import com.ltweb.DTO.Action.ShoppingCartDto;
 import com.ltweb.Service.dondathang.dondathangService;
+import com.ltweb.Service.product_Color.product_ColorService;
+import com.ltweb.Service.product_Size.product_SizeService;
 import com.ltweb.Service.products.productsService;
 import com.ltweb.entity.customers;
 import com.ltweb.entity.dondathang;
@@ -32,8 +34,13 @@ public class ApiController {
 	@Autowired
 	private productsService productsService;
 	@Autowired
+	private product_SizeService product_SizeService;
+	@Autowired
+	private product_ColorService product_ColorService;
+	@Autowired
 	private ShoppingCartDto shoppingCartDto;
-	
+
+	private List<monhang2> list;
 	@Autowired
 	private ShoppingCart shoppingCart;
 	@Autowired
@@ -217,6 +224,7 @@ public class ApiController {
 		return string;
 	}
 
+	@SuppressWarnings("unchecked")
 	@PostMapping(path = "/add", produces = "text/plain; charset=UTF-8")
 	public String add(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 		customers customers = (customers) session.getAttribute("user");
@@ -224,26 +232,69 @@ public class ApiController {
 		Integer sizeId = Integer.parseInt(request.getParameter("co"));
 		Integer colorId = Integer.parseInt(request.getParameter("mau"));
 		Integer quanlity = Integer.parseInt(request.getParameter("quantity"));
-
-		shoppingCartDto.addItems(pid, sizeId, colorId, shoppingCart, customers, quanlity);
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals(String.valueOf(customers.getId()))) {
-					cookie.setMaxAge(0);
-					response.addCookie(cookie);
+		String txt = "", string ="";
+		monhang2 monhang = new monhang2(productsService.getProductById(pid), product_SizeService.getProduct_SizeById(sizeId), 
+				product_ColorService.getProduct_ColorById(colorId), quanlity);
+//		double sum = (double)session.getAttribute("total");
+		List<monhang2> listMonhang2 =  (List<monhang2>) session.getAttribute("cart");
+		
+		try {
+			int vitri = -1;
+			if(listMonhang2.size() == 0) {
+				listMonhang2.add(monhang);
+			}
+			else {
+				boolean check = true;
+				
+				for (monhang2 monhang2 : listMonhang2) {
+					if(monhang2.getProducts().getId() == monhang.getProducts().getId()){
+						check = false;
+						 vitri = listMonhang2.indexOf(monhang2);
+						int curSoluong =listMonhang2.get(vitri).getSoluong()+monhang.getSoluong();
+						monhang2 mhMonhang2 = new monhang2(monhang2.getProducts(), monhang2.getProduct_Size(), monhang2.getProduct_Color(), curSoluong);
+						listMonhang2.set(vitri, mhMonhang2);
+						break;
+					}
+				}
+				if(check) {
+					listMonhang2.add(monhang);
 				}
 			}
+			session.setAttribute("cart", listMonhang2);
+			
+			shoppingCartDto.addItems(pid, sizeId, colorId, shoppingCart, customers, quanlity);
+			Cookie[] cookies = request.getCookies();
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equals(String.valueOf(customers.getId()))) {
+						cookie.setMaxAge(0);
+						response.addCookie(cookie);
+					}
+				}
+			}
+			
+//			for (Monhang monhang2 : shoppingCart.getList()) {
+//				txt += String.valueOf(monhang2.getTg_product_size_color().getId()) + ":" + String.valueOf(monhang2.getSoluong()) + "a";
+//				products products = productsService.getProductById(monhang2.getTg_product_size_color().getProduct_id());
+//				string += products.getImage()+","+products.getName()+","+listMonhang2.get(vitri).getSoluong()+","+String.valueOf(products.getPrice())+"a";
+//				
+//			}
+			
+			double sum = (double)session.getAttribute("total");
+			sum = 0;
+			for (monhang2 monhang2 : listMonhang2) {
+				sum+=monhang2.getSoluong() * monhang2.getProducts().getPrice(); 
+				string += monhang2.getProducts().getImage()+","+monhang2.getProducts().getName()+","+monhang2.getSoluong()+","+monhang2.getProducts().getPrice()+"a";
+			}
+			string+=sum+"a";
+			session.setAttribute("total", sum);
+			Cookie cookie = new Cookie(String.valueOf(customers.getId()), txt);
+			cookie.setMaxAge(60);
+			response.addCookie(cookie);
+			
+		} catch (Exception e) {
 		}
-		String txt = "";
-		for (Monhang monhang2 : shoppingCart.getList()) {
-			txt += String.valueOf(monhang2.getTg_product_size_color().getId()) + ":" + String.valueOf(monhang2.getSoluong()) + "a";
-		}
-		Cookie cookie = new Cookie(String.valueOf(customers.getId()), txt);
-		cookie.setMaxAge(60);
-		response.addCookie(cookie);
-		session.setAttribute("cart", shoppingCart.getList());
-		return txt;
+		return string;
 	}
 	
 	

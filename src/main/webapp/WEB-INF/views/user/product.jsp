@@ -233,15 +233,13 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-pic hov-img0">
-									<img src="<c:url value='/resources/images/${s.image }'/>"
-										alt="IMG-PRODUCT"> <a href="#"
-										class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-										Quick View </a>
+									<a href="detail?pid=${s.id }"><img src="<c:url value='/resources/images/${s.image }'/>"
+										alt="IMG-PRODUCT"></a>
 								</div>
 
 								<div class="block2-txt flex-w flex-t p-t-14">
 									<div class="block2-txt-child1 flex-col-l ">
-										<a href="#" id="${s.id }"
+										<a href="detail" id="${s.id }"
 											class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 											${s.name } </a> <span class="stext-105 cl3"> $${s.price }
 										</span>
@@ -267,7 +265,7 @@
 			<div class="flex-c-m flex-w w-full p-t-45">
 				<a onclick="loadMore(this.id)" type="button" id="loadmore"
 					class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-					Load More </a>
+					<button>Load More </button></a>
 			</div>
 		</div>
 	</div>
@@ -423,15 +421,13 @@
 	 		       			+ "						<!-- Block2 -->\r\n"
 	 		   			+ "						<div class=\"block2\">\r\n"
 	 		   			+ "							<div class=\"block2-pic hov-img0\">\r\n"
-	 		   			+ "								<img src=\"<c:url value='/resources/images/"+pro[1]+"'/>\"\r\n"
-	 		   			+ "									alt=\"IMG-PRODUCT\"> <a href=\"#\"\r\n"
-	 		   			+ "									class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">\r\n"
-	 		   			+ "									Quick View </a>\r\n"
+	 		   			+ "								<a href=\"detail?pid="+pro[0]+"\"><img src=\"<c:url value='/resources/images/"+pro[1]+"'/>\"\r\n"
+	 		   			+ "									alt=\"IMG-PRODUCT\"></a>\r\n"
 	 		   			+ "							</div>\r\n"
 	 		   			+ "\r\n"
 	 		   			+ "							<div class=\"block2-txt flex-w flex-t p-t-14\">\r\n"
 	 		   			+ "								<div class=\"block2-txt-child1 flex-col-l \">\r\n"
-	 		   			+ "									<a href=\"#\"\r\n"
+	 		   			+ "									<a href=\"detail\"\r\n"
 	 		   			+ "										class=\"stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6\">\r\n"
 	 		   			+ "										"+pro[2]+" </a> <span class=\"stext-105 cl3\"> $"+pro[4]+" </span>\r\n"
 	 		   			+ "								</div>\r\n"
@@ -481,15 +477,13 @@
 	 		       			+ "						<!-- Block2 -->\r\n"
 	 		   			+ "						<div class=\"block2\">\r\n"
 	 		   			+ "							<div class=\"block2-pic hov-img0\">\r\n"
-	 		   			+ "								<img src=\"<c:url value='/resources/images/"+pro[1]+"'/>\"\r\n"
-	 		   			+ "									alt=\"IMG-PRODUCT\"> <a href=\"#\"\r\n"
-	 		   			+ "									class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">\r\n"
-	 		   			+ "									Quick View </a>\r\n"
+	 		   		+ "								<a href=\"detail?pid="+pro[0]+"\"><img src=\"<c:url value='/resources/images/"+pro[1]+"'/>\"\r\n"
+ 		   			+ "									alt=\"IMG-PRODUCT\"></a>\r\n"
 	 		   			+ "							</div>\r\n"
 	 		   			+ "\r\n"
 	 		   			+ "							<div class=\"block2-txt flex-w flex-t p-t-14\">\r\n"
 	 		   			+ "								<div class=\"block2-txt-child1 flex-col-l \">\r\n"
-	 		   			+ "									<a href=\"#\"\r\n"
+	 		   			+ "									<a href=\"detail\"\r\n"
 	 		   			+ "										class=\"stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6\">\r\n"
 	 		   			+ "										"+pro[2]+" </a> <span class=\"stext-105 cl3\"> $"+pro[4]+" </span>\r\n"
 	 		   			+ "								</div>\r\n"
@@ -556,15 +550,13 @@
  		       			+ "						<!-- Block2 -->\r\n"
  		   			+ "						<div class=\"block2\">\r\n"
  		   			+ "							<div class=\"block2-pic hov-img0\">\r\n"
- 		   			+ "								<img src=\"<c:url value='/resources/images/"+pro[1]+"'/>\"\r\n"
- 		   			+ "									alt=\"IMG-PRODUCT\"> <a href=\"#\"\r\n"
- 		   			+ "									class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">\r\n"
- 		   			+ "									Quick View </a>\r\n"
+ 		   		+ "								<a href=\"detail?pid="+pro[0]+"\"><img src=\"<c:url value='/resources/images/"+pro[1]+"'/>\"\r\n"
+		   			+ "									alt=\"IMG-PRODUCT\"></a>\r\n"
  		   			+ "							</div>\r\n"
  		   			+ "\r\n"
  		   			+ "							<div class=\"block2-txt flex-w flex-t p-t-14\">\r\n"
  		   			+ "								<div class=\"block2-txt-child1 flex-col-l \">\r\n"
- 		   			+ "									<a href=\"#\"\r\n"
+ 		   			+ "									<a href=\"detail\"\r\n"
  		   			+ "										class=\"stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6\">\r\n"
  		   			+ "										"+pro[2]+" </a> <span class=\"stext-105 cl3\"> $"+pro[4]+" </span>\r\n"
  		   			+ "								</div>\r\n"
@@ -618,15 +610,13 @@
  		       			+ "						<!-- Block2 -->\r\n"
  		   			+ "						<div class=\"block2\">\r\n"
  		   			+ "							<div class=\"block2-pic hov-img0\">\r\n"
- 		   			+ "								<img src=\"<c:url value='/resources/images/"+pro[1]+"'/>\"\r\n"
- 		   			+ "									alt=\"IMG-PRODUCT\"> <a href=\"#\"\r\n"
- 		   			+ "									class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">\r\n"
- 		   			+ "									Quick View </a>\r\n"
+ 		   		+ "								<a href=\"detail?pid="+pro[0]+"\"><img src=\"<c:url value='/resources/images/"+pro[1]+"'/>\"\r\n"
+		   			+ "									alt=\"IMG-PRODUCT\"></a>\r\n"
  		   			+ "							</div>\r\n"
  		   			+ "\r\n"
  		   			+ "							<div class=\"block2-txt flex-w flex-t p-t-14\">\r\n"
  		   			+ "								<div class=\"block2-txt-child1 flex-col-l \">\r\n"
- 		   			+ "									<a href=\"#\"\r\n"
+ 		   			+ "									<a href=\"detail\"\r\n"
  		   			+ "										class=\"stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6\">\r\n"
  		   			+ "										"+pro[2]+" </a> <span class=\"stext-105 cl3\"> $"+pro[4]+" </span>\r\n"
  		   			+ "								</div>\r\n"
@@ -658,6 +648,8 @@
 			}
 		});
 	}
+	
+	
 	</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.ltweb.controller.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,17 +13,22 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ltweb.DTO.Monhang;
+import com.ltweb.DTO.monhang2;
 import com.ltweb.Service.categories.categoriesService;
+import com.ltweb.Service.product_Color.product_ColorService;
+import com.ltweb.Service.product_Size.product_SizeService;
 import com.ltweb.Service.products.productsService;
 import com.ltweb.entity.categories;
+import com.ltweb.entity.product_Color;
 import com.ltweb.entity.products;
 
 @Controller
-@SessionAttributes("user")
+@SessionAttributes({"user", "cart", "total"})
 public class UserController {
 
 	@Autowired
 	private productsService productsService;
+	
 	@Autowired
 	private categoriesService categoriesService;
 
@@ -39,10 +45,14 @@ public class UserController {
 	}
 
 	@GetMapping({ "/", "/shop", "/home" })
-	public ModelAndView shop() {
+	public ModelAndView shop(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("user/shop");
 		List<categories> listC = categoriesService.list();
 		modelAndView.addObject("listC", listC);
+		List<monhang2> listMonhang2 = new ArrayList<monhang2>();
+		modelAndView.addObject("cart", listMonhang2);
+		double sum = 0;
+		modelAndView.addObject("total", sum);
 		products products = productsService.getLastProducts();
 		modelAndView.addObject("p", products);
 		List<products> listP = productsService.getThreeProducts(0);
@@ -50,8 +60,9 @@ public class UserController {
 		return modelAndView;
 	}
 
+
 	@GetMapping({ "/product" })
-	public ModelAndView product() {
+	public ModelAndView product(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("user/product");
 		List<products> listFourProducts = productsService.getThreeProducts(0);
 		modelAndView.addObject("listP", listFourProducts);
@@ -65,13 +76,9 @@ public class UserController {
 	}
 
 	@GetMapping("/detail")
-	public ModelAndView detail(@RequestParam("pid") int pid) {
-		ModelAndView modelAndView = new ModelAndView("user/detail");
+	public ModelAndView detail(@RequestParam("pid")int pid) {
+		ModelAndView modelAndView = new ModelAndView("user/Detail");
 		products products = productsService.getProductById(pid);
-		List<categories> listC = categoriesService.list();
-		modelAndView.addObject("listC", listC);
-		products productss = productsService.getLastProducts();
-		modelAndView.addObject("last", productss);
 		modelAndView.addObject("p", products);
 		return modelAndView;
 	}
