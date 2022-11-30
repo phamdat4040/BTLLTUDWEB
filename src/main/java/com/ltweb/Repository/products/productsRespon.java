@@ -13,11 +13,11 @@ public interface productsRespon {
 
 	public products getProductById(int id);
 
-	public void addProduct(String name, int cate_id, String description, String image, float price);
+	public void addProduct(String name, String description, String image, float price, String gender);
 
 	public products getLastProduct();
 
-	public void updateProduct(int id, String name, int cate_id, String description, String image, float price);
+	public void updateProduct(int id, String name, String description, String image, float price);
 
 	public List<products> getThreeProducts(int soluong);
 
@@ -30,7 +30,7 @@ public interface productsRespon {
 	public void updatesizecolor(int id, int sold, int stock, int sizeid, int colorid);
 
 	public List<products> searchProducts(String txt);
-	
+
 	public List<products> listProductForMen(int soluong, String status);
 
 }

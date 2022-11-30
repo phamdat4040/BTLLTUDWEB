@@ -56,12 +56,11 @@
 								name="description" rows="3" required></textarea>
 						</div>
 						<div class="form-group">
-							<label for="category">Category</label> <select
-								class="custom-select tm-select-accounts" id="category"
-								name="category">
-								<c:forEach items="${listCate }" var="listCate">
-									<option selected>${listCate.name }</option>
-								</c:forEach>
+							<label for="category">Gender</label> <select
+								class="custom-select tm-select-accounts" id="gender"
+								name="gender">
+								<option selected>Men</option>
+								<option selected>Women</option>
 							</select>
 						</div>
 						<div class="form-group ">

@@ -76,15 +76,7 @@ public class AdminHomeController {
 		ModelAndView modelAndView = new ModelAndView("admin/products");
 		List<products> listP = productsService.list();
 		modelAndView.addObject("listP", listP);
-		List<categories> listCate = categoriesService.list();
-		modelAndView.addObject("listC", listCate);
 		return modelAndView;
-	}
-
-	@GetMapping("/delCate")
-	public String delCate(@RequestParam("cid") int cid) {
-		categoriesService.delCategory(cid);
-		return "redirect:/products";
 	}
 
 	@GetMapping("/delProduct")
@@ -112,33 +104,29 @@ public class AdminHomeController {
 	}
 
 	@PostMapping(path = "/addP", produces = "text/plain; charset = UTF-8")
-	public String addProduct(@RequestParam("name") String name, @RequestParam("category") String cateName,
-			@RequestParam("description") String description, @RequestParam("price") float price,
-			@RequestParam("image") String image) {
-		categories category = (categories) categoriesService.getCateByName(cateName);
-		productsService.addProducts(name, category.getId(), description, image, price);
+	public String addProduct(@RequestParam("name") String name, @RequestParam("description") String description,
+			@RequestParam("price") float price, @RequestParam("image") String image,
+			@RequestParam("gender") String gender) {
+		productsService.addProducts(name, description, image, price, gender);
 		return "redirect:/products";
 	}
 
-//	@GetMapping("/edit_product")
-//	public ModelAndView editproduct(@RequestParam("pid") int pid) {
-//		ModelAndView modelAndView = new ModelAndView("admin/edit_products");
-//		products product = (products) productsService.getProductById(pid);
-//		modelAndView.addObject("product", product);
-//		tg_product_size_color product_size_color = (tg_product_size_color) productsService.getByid(pid);
-//		modelAndView.addObject("psizecolor", product_size_color);
-//		List<categories> listCate = categoriesService.list();
-//		modelAndView.addObject("listCate", listCate);
-//		return modelAndView;
-//	}
+	@GetMapping("/edit_product")
+	public ModelAndView editproduct(@RequestParam("pid") int pid) {
+		ModelAndView modelAndView = new ModelAndView("admin/edit_products");
+		products product = (products) productsService.getProductById(pid);
+		modelAndView.addObject("product", product);
+		tg_product_size_color product_size_color = (tg_product_size_color) productsService.getByid(pid);
+		modelAndView.addObject("psizecolor", product_size_color);
+		return modelAndView;
+	}
 
 	@PostMapping("/changeProduct")
 	public String change(@RequestParam("pid") int pid, @RequestParam("name") String name,
-			@RequestParam("description") String description, @RequestParam("category") String cateName,
-			@RequestParam("price") float price, @RequestParam("sold") int sold, @RequestParam("stock") int stock,
-			@RequestParam("image") String image, @RequestParam("size") int size, @RequestParam("color") int color) {
-		categories category = (categories) categoriesService.getCateByName(cateName);
-		productsService.updateProduct(pid, name, category.getId(), description, image, price);
+			@RequestParam("description") String description, @RequestParam("price") float price,
+			@RequestParam("sold") int sold, @RequestParam("stock") int stock, @RequestParam("image") String image,
+			@RequestParam("size") int size, @RequestParam("color") int color) {
+		productsService.updateProduct(pid, name, description, image, price);
 		productsService.updatesizecolor(pid, sold, stock, size, color);
 		return "redirect:/products";
 	}
