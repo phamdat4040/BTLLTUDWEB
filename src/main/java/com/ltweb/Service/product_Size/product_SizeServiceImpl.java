@@ -20,4 +20,9 @@ public class product_SizeServiceImpl implements product_SizeService {
 		return product_SizeRepo.getProduct_SizeById(id);
 	}
 
+	@Override
+	public product_Size getProduct_SizeByName(String name) {
+		return product_SizeRepo.getProduct_SizeByName(name);
+	}
+
 }

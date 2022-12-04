@@ -460,11 +460,12 @@
 			                		document.getElementById("alertColor").style.display = "none";
 			                		var co = size.selectedIndex;
 			                        var mau = color.selectedIndex;
+			                        
 			                       	$.ajax({
 			                			type: "POST",
 			                	        data:{
 			                	        	quantity: $(".num-product").val(),
-			                	        	co: co,
+			                	        	co: co+1,
 			                	        	mau: mau,
 			                	        	pid: ${p.id}
 			                	        },
@@ -474,22 +475,28 @@
 			                	        	 if(res != ""){
 			                	 	        		var tam = "";
 			                	 	        		res = res.substr(0, res.length - 1);
-			                	 		            var str = res.split("a");
+			                	 		            var str = res.split(":");
 			                	 		            total.innerHTML = "Total: $"+str[str.length-1];
 			                	        			for(let stringg of str){
-			                	 		            	var pro = stringg.split(",");
-			                	 		            	tam +="<li class=\"header-cart-item flex-w flex-t m-b-12\">\r\n"
-			                	 		           		+ "					<div class=\"header-cart-item-img\">\r\n"
-				                	 		       		+ "						<img src=\"<c:url value='/resources/images/"+pro[0]+"'/>\"\r\n"
-				                	 		       		+ "							alt=\"IMG\">\r\n"
-				                	 		       		+ "					</div>\r\n"
-				                	 		       		+ "\r\n"
-				                	 		       		+ "					<div class=\"header-cart-item-txt p-t-8\">\r\n"
-				                	 		       		+ "						<a href=\"#\" class=\"header-cart-item-name m-b-18 hov-cl1 trans-04\">\r\n"
-				                	 		       		+ "							"+pro[1]+" </a> <span class=\"header-cart-item-info\"> "+pro[2]+"\r\n"
-				                	 		       		+ "							x $"+pro[3]+" </span>\r\n"
-				                	 		       		+ "					</div>\r\n"
-				                	 		       		+ "				</li>";
+			                	        				if(stringg != str[str.length-1]){
+			                	        					var pro = stringg.split(",");
+				                	 		            	tam +="<li class=\"header-cart-item flex-w flex-t m-b-12\">\r\n"
+				                	 		           		+ "					<div class=\"header-cart-item-img\">\r\n"
+					                	 		       		+ "						<img src=\"<c:url value='/resources/images/"+pro[0]+"'/>\"\r\n"
+					                	 		       		+ "							alt=\"IMG\">\r\n"
+					                	 		       		+ "					</div>\r\n"
+					                	 		       		+ "\r\n"
+					                	 		       		+ "					<div class=\"header-cart-item-txt p-t-8\">\r\n"
+					                	 		       		+ "						<a href=\"#\" class=\"header-cart-item-name m-b-18 hov-cl1 trans-04\">\r\n"
+					                	 		       		+ "							"+pro[1]+" </a>"
+					                	 		       		+"<span class=\"header-cart-item-info\">\r\n"
+					                	 					+ "									"+pro[4]+" - "+pro[5]+" </span>"
+					                	 		       		+" <span class=\"header-cart-item-info\"> "+pro[2]+"\r\n"
+					                	 		       		+ "							x $"+pro[3]+" </span>\r\n"
+					                	 		       		+ "					</div>\r\n"
+					                	 		       		+ "				</li>";
+			                	        				}
+			                	 		            	
 			                	 		            }
 			                	        			data.innerHTML = tam;
 			                	        			

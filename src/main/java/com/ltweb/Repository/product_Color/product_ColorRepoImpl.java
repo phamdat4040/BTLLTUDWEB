@@ -20,4 +20,12 @@ public class product_ColorRepoImpl implements product_ColorRepo {
 		return product_Color;
 	}
 
+	@Override
+	public product_Color getProduct_ColorByName(String name) {
+		product_Color product_Color = (product_Color) sessionFactory.getCurrentSession()
+				.createQuery("from product_Color where colorName = :id", product_Color.class).setParameter("id", name)
+				.getSingleResult();
+		return product_Color;
+	}
+
 }

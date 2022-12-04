@@ -83,4 +83,12 @@ public class UserController {
 		return modelAndView;
 	}
 
+	@SuppressWarnings("unchecked")
+	@GetMapping("/shoping-cart")
+	public ModelAndView shopingcart(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("/user/ShoppingCart");
+		List<monhang2> list = (List<monhang2>)session.getAttribute("cart");
+		modelAndView.addObject("cart", list);
+		return modelAndView;
+	}
 }

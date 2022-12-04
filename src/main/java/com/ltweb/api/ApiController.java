@@ -109,73 +109,49 @@ public class ApiController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@GetMapping("/cong")
-	public String congSoluong(HttpSession session, @RequestParam("pid") int id, HttpServletRequest request,
-			HttpServletResponse response) {
+	@PostMapping("/cong")
+	public String congSoluong(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		List<monhang2> list = (List<monhang2>) session.getAttribute("cart");
-		customers customers = (customers) session.getAttribute("user");
-		String soluongString = "";
-		double sum = 0;
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getId() == id) {
-				list.get(i).setSoluong(list.get(i).getSoluong() + 1);
-				soluongString = String.valueOf(list.get(i).getSoluong());
-			}
-			sum += (Float) (list.get(i).getSoluong() * list.get(i).getProducts().getPrice());
-		}
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals(String.valueOf(customers.getId()))) {
-					cookie.setMaxAge(0);
-					response.addCookie(cookie);
-				}
-			}
-		}
-		String txt = "";
+		double tong = (double)session.getAttribute("total");
+		tong = 0;
+		int pid = Integer.parseInt(request.getParameter("pid"));
+		int co = Integer.parseInt(request.getParameter("co"));
+		int mau = Integer.parseInt(request.getParameter("mau"));
+		int soluong = Integer.parseInt(request.getParameter("soluong"))  + 1;
+		double total = 0;
 		for (monhang2 monhang2 : list) {
-			txt += String.valueOf(monhang2.getId()) + ":" + String.valueOf(monhang2.getSoluong()) + "a";
+			if(monhang2.getProducts().getId() == pid && monhang2.getProduct_Size().getId() == co
+					&& monhang2.getProduct_Color().getId() == mau) {
+				int vitri = list.indexOf(monhang2);
+				list.get(vitri).setSoluong(soluong);
+				total = soluong*monhang2.getProducts().getPrice();
+			}
+			tong +=monhang2.getSoluong()*monhang2.getProducts().getPrice();
 		}
-		Cookie cookie = new Cookie(String.valueOf(customers.getId()), txt);
-		cookie.setMaxAge(60);
-		response.addCookie(cookie);
-		soluongString += "," + String.valueOf(sum);
-		return soluongString;
+		return String.valueOf(total)+","+String.valueOf(tong);
 	}
 
 	@SuppressWarnings("unchecked")
-	@GetMapping("/tru")
-	public String truSoluong(HttpSession session, @RequestParam("pid") int id, HttpServletRequest request,
-			HttpServletResponse response) {
-		List<monhang2> list = (List<monhang2>) session.getAttribute("cart");
-		customers customers = (customers) session.getAttribute("user");
-		String soluongString = "";
-		double sum = 0;
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getId() == id) {
-				list.get(i).setSoluong(list.get(i).getSoluong() - 1);
-				soluongString = String.valueOf(list.get(i).getSoluong());
-			}
-			sum += (Float) (list.get(i).getSoluong() * list.get(i).getProducts().getPrice());
-		}
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals(String.valueOf(customers.getId()))) {
-					cookie.setMaxAge(0);
-					response.addCookie(cookie);
-				}
-			}
-		}
-		String txt = "";
+	@PostMapping("/tru")
+	public String truSoluong(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		List<monhang2> list = (List<monhang2>)session.getAttribute("cart");
+		double tong = (double)session.getAttribute("total");
+		tong = 0;
+		int pid = Integer.parseInt(request.getParameter("pid"));
+		int co = Integer.parseInt(request.getParameter("co"));
+		int mau = Integer.parseInt(request.getParameter("mau"));
+		int soluong = Integer.parseInt(request.getParameter("soluong")) -1;
+		double total = 0;
 		for (monhang2 monhang2 : list) {
-			txt += String.valueOf(monhang2.getId()) + ":" + String.valueOf(monhang2.getSoluong()) + "a";
+			if(monhang2.getProducts().getId() == pid && monhang2.getProduct_Size().getId() == co
+					&& monhang2.getProduct_Color().getId() == mau) {
+				int vitri = list.indexOf(monhang2);
+				list.get(vitri).setSoluong(soluong);
+				total = soluong*monhang2.getProducts().getPrice();
+			}
+				tong += monhang2.getSoluong() * monhang2.getProducts().getPrice();
 		}
-		Cookie cookie = new Cookie(String.valueOf(customers.getId()), txt);
-		cookie.setMaxAge(60);
-		response.addCookie(cookie);
-		soluongString += "," + String.valueOf(sum);
-		return soluongString;
+		return String.valueOf(total)+","+String.valueOf(tong);
 	}
 
 	@PostMapping(path = "/search", produces = "text/plain; charset=UTF-8")
@@ -247,7 +223,8 @@ public class ApiController {
 				boolean check = true;
 				
 				for (monhang2 monhang2 : listMonhang2) {
-					if(monhang2.getProducts().getId() == monhang.getProducts().getId()){
+					if(monhang2.getProducts().getId() == monhang.getProducts().getId() && monhang2.getProduct_Color().getColorName().equals(monhang.getProduct_Color().getColorName())
+							&& monhang2.getProduct_Size().getSizeName().equals(monhang.getProduct_Size().getSizeName())) {
 						check = false;
 						 vitri = listMonhang2.indexOf(monhang2);
 						int curSoluong =listMonhang2.get(vitri).getSoluong()+monhang.getSoluong();
@@ -284,9 +261,11 @@ public class ApiController {
 			sum = 0;
 			for (monhang2 monhang2 : listMonhang2) {
 				sum+=monhang2.getSoluong() * monhang2.getProducts().getPrice(); 
-				string += monhang2.getProducts().getImage()+","+monhang2.getProducts().getName()+","+monhang2.getSoluong()+","+monhang2.getProducts().getPrice()+"a";
+				string += monhang2.getProducts().getImage()+","+monhang2.getProducts().getName()+","+monhang2.getSoluong()+","+monhang2.getProducts().getPrice()+
+						","+monhang2.getProduct_Size().getSizeName()+","+monhang2.getProduct_Color().getColorName()+":";
 			}
-			string+=sum+"a";
+			
+			string+=sum+":";
 			session.setAttribute("total", sum);
 			Cookie cookie = new Cookie(String.valueOf(customers.getId()), txt);
 			cookie.setMaxAge(60);
