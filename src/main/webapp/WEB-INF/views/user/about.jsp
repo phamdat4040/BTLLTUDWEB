@@ -45,8 +45,6 @@
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/user/header.jsp"%>
 
-	<!-- Cart -->
-	<%@ include file="/WEB-INF/views/user/cart.jsp"%>
 
 
 	<!-- Title page -->

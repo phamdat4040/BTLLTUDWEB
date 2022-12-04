@@ -10,10 +10,10 @@ public class monhang2 {
 	private product_Size product_Size;
 	private product_Color product_Color;
 	private int soluong;
-	public monhang2(int id, com.ltweb.entity.products products, com.ltweb.entity.product_Size product_Size,
+	public monhang2(com.ltweb.entity.products products, com.ltweb.entity.product_Size product_Size,
 			com.ltweb.entity.product_Color product_Color, int soluong) {
 		super();
-		this.id = id;
+
 		this.products = products;
 		this.product_Size = product_Size;
 		this.product_Color = product_Color;
