@@ -1,4 +1,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+	.badge {
+	  padding-left: 9px;
+	  padding-right: 9px;
+	  -webkit-border-radius: 9px;
+	  -moz-border-radius: 9px;
+	  
+	}
+	
+	.label-warning[href],
+	.badge-warning[href] {
+	  background-color: #c67605;
+	}
+	#lblCartCount {
+	    font-size: 12px;
+	    background: #ff0000;
+	    background-color: white;
+	    padding: 0 4px;
+	    color:red;
+	    vertical-align: top;
+	    margin-left: -10px; 
+
+	}
+}
+</style>
 <header class="header-v4">
 	<!-- Header desktop -->
 	<div class="container-menu-desktop">
@@ -9,9 +34,15 @@
 					over $100</div>
 
 				<div class="right-top-bar flex-w h-full">
-					<a href="#" class="flex-c-m trans-04 p-lr-25"> Help & FAQs </a> <a
-						href="#" class="flex-c-m trans-04 p-lr-25"> My Account </a> <a
-						href="#" class="flex-c-m trans-04 p-lr-25"> EN </a> <a href="#"
+					<a href="#" class="flex-c-m trans-04 p-lr-25"> Help & FAQs </a>
+					<c:if test="${user == null }">
+						<a href="login/dangnhap" class="flex-c-m trans-04 p-lr-25"> My Account </a> 
+					</c:if>
+					<c:if test="${user != null }">
+						<a href="#" class="flex-c-m trans-04 p-lr-25">Hello, ${user.lastname} ${user.firstname }</a>
+						<a href="dangxuat" class="flex-c-m trans-04 p-lr-25">Logout</a> 
+					</c:if>
+					 <a href="#" class="flex-c-m trans-04 p-lr-25"> EN </a> <a href="#"
 						class="flex-c-m trans-04 p-lr-25"> USD </a>
 				</div>
 			</div>
@@ -46,17 +77,12 @@
 						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
 						<i class="zmdi zmdi-search"></i>
 					</div>
-
+					
 					<div
-						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-						data-notify="2">
-						<i class="zmdi zmdi-shopping-cart"></i>
+						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-cart">
+						<i class="fa" style="font-size:24px">&#xf07a;</i>
+						<span class='badge badge-warning' id='lblCartCount'> ${soluong!= null ? soluong: 0 } </span>
 					</div>
-
-					<a href="#"
-						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-						data-notify="0"> <i class="zmdi zmdi-favorite-outline"></i>
-					</a>
 				</div>
 			</nav>
 		</div>

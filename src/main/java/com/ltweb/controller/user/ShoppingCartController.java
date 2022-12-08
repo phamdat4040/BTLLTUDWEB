@@ -7,12 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ltweb.DTO.Monhang;
@@ -43,16 +39,18 @@ public class ShoppingCartController {
 
 	@GetMapping("/showCart")
 	public String showCart(HttpSession session) {
-		if(session.getAttribute("user") == null) {
+		if (session.getAttribute("user") == null) {
 			return "user/Login";
-		}
-		else {
+		} else {
 			if (shoppingCart.getList().size() != 0) {
 				List<monhang2> listMonhang2 = new ArrayList<monhang2>();
 				for (Monhang monhang : shoppingCart.getList()) {
-					products products = productsService.getProductById(monhang.getTg_product_size_color().getProduct_id());
-					product_Size product_Size = product_SizeService.getProduct_SizeById(monhang.getTg_product_size_color().getSize_id());
-					product_Color product_Color = product_ColorService.getProduct_ColorById(monhang.getTg_product_size_color().getIdcolor_id());
+					products products = productsService
+							.getProductById(monhang.getTg_product_size_color().getProduct_id());
+					product_Size product_Size = product_SizeService
+							.getProduct_SizeById(monhang.getTg_product_size_color().getSize_id());
+					product_Color product_Color = product_ColorService
+							.getProduct_ColorById(monhang.getTg_product_size_color().getIdcolor_id());
 					monhang2 monhang2 = new monhang2(products, product_Size, product_Color, monhang.getSoluong());
 					listMonhang2.add(monhang2);
 				}
@@ -69,20 +67,20 @@ public class ShoppingCartController {
 			}
 			return "user/ShoppingCart";
 		}
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
 	@GetMapping("/buy")
 	public ModelAndView Payment(HttpSession session, HttpServletRequest request) {
 		double sum = 0;
-		List<monhang2> list = (List<monhang2>)session.getAttribute("cart");
+		List<monhang2> list = (List<monhang2>) session.getAttribute("cart");
 		for (monhang2 monhang : list) {
 			sum += monhang.getProducts().getPrice() * monhang.getSoluong();
 		}
 		ModelAndView modelAndView = new ModelAndView("user/Payment");
 		modelAndView.addObject("payment", list);
-		modelAndView.addObject("tongcong", sum+10);
+		modelAndView.addObject("tongcong", sum + 10);
 		return modelAndView;
 	}
 

@@ -40,7 +40,7 @@
         $('html, body').animate({scrollTop: 0}, 300);
     });
 
-
+	
     /*==================================================================
     [ Fixed Header ]*/
     var headerDesktop = $('.container-menu-desktop');

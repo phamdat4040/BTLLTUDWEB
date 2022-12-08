@@ -12,10 +12,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ltweb.DTO.Monhang;
 import com.ltweb.DTO.ShoppingCart;
 import com.ltweb.DTO.dondathang_fAdmin;
 import com.ltweb.DTO.monhang2;
@@ -38,12 +36,6 @@ public class ApiController {
 	@Autowired
 	private product_ColorService product_ColorService;
 	@Autowired
-	private ShoppingCartDto shoppingCartDto;
-
-	private List<monhang2> list;
-	@Autowired
-	private ShoppingCart shoppingCart;
-	@Autowired
 	private dondathangService dondathangService;
 
 	@PostMapping(path = "/loadFourProducts", produces = "text/plain; charset=UTF-8")
@@ -58,7 +50,7 @@ public class ApiController {
 
 		return string;
 	}
-	
+
 	@PostMapping("/loadProducts")
 	public String loadProductsForMen(HttpServletRequest request) {
 		String string = "";
@@ -78,15 +70,16 @@ public class ApiController {
 	@SuppressWarnings("unchecked")
 	@PostMapping(path = "/delItemCart", produces = "text/plain; charset=UTF-8")
 	public String delItemsCart(HttpServletRequest request, HttpSession session) {
-		int id = Integer.parseInt(request.getParameter("productid"));
+		int id = Integer.parseInt(request.getParameter("pid"));
+		int sizeid = Integer.parseInt(request.getParameter("co"));
+		int colorid = Integer.parseInt(request.getParameter("mau"));
 		String s = "";
 		double sum = 0;
 		List<monhang2> list = (List<monhang2>) session.getAttribute("cart");
 		for (monhang2 monhang : list) {
-			if (monhang.getId() == id) {
+			if (monhang.getProducts().getId() == id && monhang.getProduct_Size().getId() == sizeid && monhang.getProduct_Color().getId() == colorid) {
 				int vitri = list.indexOf(monhang);
 				list.remove(vitri);
-				shoppingCart.getList().remove(vitri);
 				break;
 			}
 		}
@@ -94,17 +87,19 @@ public class ApiController {
 			for (monhang2 monhang : list) {
 
 				s += monhang.getProducts().getImage() + "," + monhang.getProducts().getName() + ","
-						+ monhang.getProducts().getPrice() + "," + monhang.getSoluong() + "," + monhang.getProducts().getId() + ","
-						+ monhang.getProduct_Size().getSizeName() + "," + monhang.getProduct_Color().getColorName()
-						+ ":";
+						+ monhang.getProducts().getPrice() + "," + monhang.getSoluong() + ","
+						+ monhang.getProducts().getId() + "," + monhang.getProduct_Size().getSizeName() + ","
+						+ monhang.getProduct_Color().getColorName() ;
 				sum += monhang.getProducts().getPrice() * monhang.getSoluong();
 
 			}
-
+			s+=list.size()+":";
 		} else {
 			sum = 0;
 		}
 		s += String.valueOf(sum);
+		session.setAttribute("total", sum);
+		session.setAttribute("soluong", list.size());
 		return s;
 	}
 
@@ -208,39 +203,39 @@ public class ApiController {
 		Integer sizeId = Integer.parseInt(request.getParameter("co"));
 		Integer colorId = Integer.parseInt(request.getParameter("mau"));
 		Integer quanlity = Integer.parseInt(request.getParameter("quantity"));
-		String txt = "", string ="";
-		monhang2 monhang = new monhang2(productsService.getProductById(pid), product_SizeService.getProduct_SizeById(sizeId), 
-				product_ColorService.getProduct_ColorById(colorId), quanlity);
-//		double sum = (double)session.getAttribute("total");
-		List<monhang2> listMonhang2 =  (List<monhang2>) session.getAttribute("cart");
-		
+		String string = "";
+		monhang2 monhang = new monhang2(productsService.getProductById(pid),
+				product_SizeService.getProduct_SizeById(sizeId), product_ColorService.getProduct_ColorById(colorId),
+				quanlity);
+
+		List<monhang2> listMonhang2 = (List<monhang2>) session.getAttribute("cart");
+		Cookie[] cookies = request.getCookies();
 		try {
 			int vitri = -1;
-			if(listMonhang2.size() == 0) {
+			if (listMonhang2.size() == 0) {
 				listMonhang2.add(monhang);
-			}
-			else {
+			} else {
 				boolean check = true;
-				
+
 				for (monhang2 monhang2 : listMonhang2) {
 					if(monhang2.getProducts().getId() == monhang.getProducts().getId() && monhang2.getProduct_Color().getColorName().equals(monhang.getProduct_Color().getColorName())
 							&& monhang2.getProduct_Size().getSizeName().equals(monhang.getProduct_Size().getSizeName())) {
+
 						check = false;
-						 vitri = listMonhang2.indexOf(monhang2);
-						int curSoluong =listMonhang2.get(vitri).getSoluong()+monhang.getSoluong();
-						monhang2 mhMonhang2 = new monhang2(monhang2.getProducts(), monhang2.getProduct_Size(), monhang2.getProduct_Color(), curSoluong);
+						vitri = listMonhang2.indexOf(monhang2);
+						int curSoluong = listMonhang2.get(vitri).getSoluong() + monhang.getSoluong();
+						monhang2 mhMonhang2 = new monhang2(monhang2.getProducts(), monhang2.getProduct_Size(),
+								monhang2.getProduct_Color(), curSoluong);
 						listMonhang2.set(vitri, mhMonhang2);
 						break;
 					}
 				}
-				if(check) {
+				if (check) {
 					listMonhang2.add(monhang);
 				}
 			}
 			session.setAttribute("cart", listMonhang2);
 			
-			shoppingCartDto.addItems(pid, sizeId, colorId, shoppingCart, customers, quanlity);
-			Cookie[] cookies = request.getCookies();
 			if (cookies != null) {
 				for (Cookie cookie : cookies) {
 					if (cookie.getName().equals(String.valueOf(customers.getId()))) {
@@ -250,14 +245,8 @@ public class ApiController {
 				}
 			}
 			
-//			for (Monhang monhang2 : shoppingCart.getList()) {
-//				txt += String.valueOf(monhang2.getTg_product_size_color().getId()) + ":" + String.valueOf(monhang2.getSoluong()) + "a";
-//				products products = productsService.getProductById(monhang2.getTg_product_size_color().getProduct_id());
-//				string += products.getImage()+","+products.getName()+","+listMonhang2.get(vitri).getSoluong()+","+String.valueOf(products.getPrice())+"a";
-//				
-//			}
 			
-			double sum = (double)session.getAttribute("total");
+			double sum = (double) session.getAttribute("total");
 			sum = 0;
 			for (monhang2 monhang2 : listMonhang2) {
 				sum+=monhang2.getSoluong() * monhang2.getProducts().getPrice(); 
@@ -265,73 +254,78 @@ public class ApiController {
 						","+monhang2.getProduct_Size().getSizeName()+","+monhang2.getProduct_Color().getColorName()+":";
 			}
 			
-			string+=sum+":";
+			string+=sum+":"+listMonhang2.size()+":";
 			session.setAttribute("total", sum);
-			Cookie cookie = new Cookie(String.valueOf(customers.getId()), txt);
-			cookie.setMaxAge(60);
-			response.addCookie(cookie);
+			session.setAttribute("soluong", listMonhang2.size());
 			
+
 		} catch (Exception e) {
 		}
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(String.valueOf(customers.getId()))) {
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
+				}
+			}
+		}
+		System.out.println(listMonhang2.size());
+		String ck = "";
+		for (monhang2 monhang2 : listMonhang2) {
+			ck+=monhang2.getProducts().getId()+":"+monhang2.getProduct_Size().getId()+":"+monhang2.getProduct_Color().getId()+":"+monhang2.getSoluong()+"_";
+		}
+		Cookie cookie = new Cookie(String.valueOf(customers.getId()), ck);
+		cookie.setMaxAge(60);
+		response.addCookie(cookie);
 		return string;
 	}
-	
-	
-	
+
 	@PostMapping(path = "/chitiet", produces = "text/plain; charset=UTF-8")
 	public String chitiet(HttpServletRequest request) {
 		int id = Integer.parseInt(request.getParameter("query"));
 		System.out.println(id);
 		String s = "";
 		List<dondathang> list = dondathangService.getListDonDatHangByCustomerName(id);
-		s+="<div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\r\n"
+		s += "<div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\r\n"
 				+ "	    <div class=\"modal-content\" style=\"color: black; width: 500px; text-align: center;\">\r\n"
 				+ "	      <div class=\"modal-header\">\r\n"
 				+ "	        <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Chi tiáº¿t Ä‘Æ¡n hÃ ng</h5>\r\n"
 				+ "	        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n"
-				+ "	          <span aria-hidden=\"true\">&times;</span>\r\n"
-				+ "	        </button>\r\n"
-				+ "	      </div>\r\n"
-				+ "	      <div class=\"modal-body\">\r\n"
+				+ "	          <span aria-hidden=\"true\">&times;</span>\r\n" + "	        </button>\r\n"
+				+ "	      </div>\r\n" + "	      <div class=\"modal-body\">\r\n"
 				+ "	        <table style=\"border: 1px ; width: 100%\">\r\n"
 				+ "	        	<tr style=\"margin-left: 20px\">\r\n"
 				+ "	        		<th style=\\\"margin-left: 60px\\\">Product Name</th>\r\n"
-				+ "	        		<th>Size-MÃ u sáº¯c</th>\r\n"
-				+ "	        		<th>Sá»‘ lÆ°á»£ng</th>\r\n"
-				+ "	        		<th>Ä�Æ¡n giÃ¡</th>\r\n"
-				+ "	        	</tr>";
+				+ "	        		<th>Size-MÃ u sáº¯c</th>\r\n" + "	        		<th>Sá»‘ lÆ°á»£ng</th>\r\n"
+				+ "	        		<th>Ä�Æ¡n giÃ¡</th>\r\n" + "	        	</tr>";
 		for (dondathang dondathang : list) {
-			s+="<tr>\r\n"
-					+ "        			<td>"+dondathang.getProductName()+"</td>\r\n"
-					+ "        			<td>"+dondathang.getSizeName()+" - "+dondathang.getColorName()+"</td>\r\n"
-					+ "        			<td>"+dondathang.getSoluong()+"</td>\r\n"
-					+ "        			<td>"+dondathang.getDongia()+"</td>\r\n"
-					+ "        		</tr>";
+			s += "<tr>\r\n" + "        			<td>" + dondathang.getProductName() + "</td>\r\n"
+					+ "        			<td>" + dondathang.getSizeName() + " - " + dondathang.getColorName()
+					+ "</td>\r\n" + "        			<td>" + dondathang.getSoluong() + "</td>\r\n"
+					+ "        			<td>" + dondathang.getDongia() + "</td>\r\n" + "        		</tr>";
 		}
-		s+="</table>\r\n"
-				+ "	      </div>\r\n"
-				+ "	      <div class=\"modal-footer\">\r\n"
-				+ "	        <button type=\"button\" onclick=\"testt("+id+")\" class=\"btn btn-success text-red\" data-dismiss=\"modal\">Duyá»‡t Ä‘Æ¡n</button>\r\n"
-				+ "	      </div>\r\n"
-				+ "	    </div>\r\n"
-				+ "	  </div>";
+		s += "</table>\r\n" + "	      </div>\r\n" + "	      <div class=\"modal-footer\">\r\n"
+				+ "	        <button type=\"button\" onclick=\"testt(" + id
+				+ ")\" class=\"btn btn-success text-red\" data-dismiss=\"modal\">Duyá»‡t Ä‘Æ¡n</button>\r\n"
+				+ "	      </div>\r\n" + "	    </div>\r\n" + "	  </div>";
 		return s;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	@PostMapping(path="/duyetdon", produces = "text/plain; charset=UTF-8")
+	@PostMapping(path = "/duyetdon", produces = "text/plain; charset=UTF-8")
 	public String duyetdon(HttpServletRequest request, HttpSession session) {
 		int id = Integer.parseInt(request.getParameter("status"));
 		System.out.println(id);
-		HashMap<Integer, dondathang_fAdmin> hashMap = (HashMap<Integer, dondathang_fAdmin>)session.getAttribute("listOrders");
+		HashMap<Integer, dondathang_fAdmin> hashMap = (HashMap<Integer, dondathang_fAdmin>) session
+				.getAttribute("listOrders");
 		for (dondathang dondathang : hashMap.get(id).getList()) {
 			dondathang.setStatus(1);
-			
+
 		}
 		dondathangService.add(hashMap.get(id).getList());
-		String string = "<td id=\""+String.valueOf(id+1000)+"\">\r\n"
+		String string = "<td id=\"" + String.valueOf(id + 1000) + "\">\r\n"
 				+ "										<div style=\"margin-right: 10px;\"><i class=\"fas fa-check-square\" style=\"font-size: 20px; color: #33FF4F; margin-right: 10px;\"></i>  Ä�Ã£ duyá»‡t Ä‘Æ¡n</div>\r\n"
 				+ "									</td>";
-		return string; 
+		return string;
 	}
 }

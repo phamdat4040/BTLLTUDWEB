@@ -1,5 +1,6 @@
 package com.ltweb.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ltweb.DTO.Monhang;
+import com.ltweb.DTO.monhang2;
 import com.ltweb.Service.customers.customersService;
 import com.ltweb.Service.employees.employeesService;
 import com.ltweb.Service.product_Color.product_ColorService;
@@ -26,6 +28,8 @@ import com.ltweb.Service.products.productsService;
 import com.ltweb.Service.tg_product_size_color.tg_product_size_colorService;
 import com.ltweb.entity.customers;
 import com.ltweb.entity.employees;
+import com.ltweb.entity.product_Color;
+import com.ltweb.entity.product_Size;
 import com.ltweb.entity.products;
 import com.ltweb.entity.tg_product_size_color;
 
@@ -38,9 +42,6 @@ public class LoginController {
 	private customersService customersService;
 	
 	@Autowired
-	private tg_product_size_colorService tg_product_size_colorService;
-
-	@Autowired
 	private employeesService employService;
 
 	@Autowired
@@ -52,8 +53,6 @@ public class LoginController {
 	@Autowired
 	private product_ColorService product_ColorService;
 
-	@Autowired
-	private com.ltweb.DTO.ShoppingCart shoppingCart;
 
 	@GetMapping("/dangnhap")
 	public String login() {
@@ -88,28 +87,33 @@ public class LoginController {
 			String string = "";
 			model.addAttribute("user", customer);
 			Cookie[] cookies = request.getCookies();
+			List<monhang2> list = new ArrayList<monhang2>();
 			if (cookies != null) {
 				for (Cookie cookie : cookies) {
 					if (cookie.getName().equals(String.valueOf(customer.getId()))) {
+						
 						string += cookie.getValue();
 					}
 				}
+
+				
 				if (string != "") {
-					String[] arr = string.split("a");
+					String[] arr = string.split("_");
 					for (String string2 : arr) {
 						String[] arr2 = string2.split(":");
-						tg_product_size_color tg_product_size_color = tg_product_size_colorService.geTg_product_size_colorById(Integer.parseInt(arr2[0]));
-						products products = productsService.getProductById(tg_product_size_color.getProduct_id());
-						Monhang monhang = new Monhang(tg_product_size_color, Integer.parseInt(arr2[1]),
-								products.getPrice());
-						shoppingCart.setCustomers(customer);
-						shoppingCart.getList().add(monhang);
+						products products = productsService.getProductById(Integer.parseInt(arr2[0]));
+						product_Color product_Color = product_ColorService.getProduct_ColorById(Integer.parseInt(arr2[2]));
+						product_Size product_Size = product_SizeService.getProduct_SizeById(Integer.parseInt(arr2[1]));
+						Integer soluongInteger = Integer.parseInt(arr2[3]);
+						monhang2 monhang2 = new monhang2(products, product_Size, product_Color, soluongInteger);
+						list.add(monhang2);
 					}
-					ses.setAttribute("cart", shoppingCart.getList());
-					Double total = total(shoppingCart.getList());
-					ses.setAttribute("total", String.valueOf(total));
+					
+//					Double total = total(list);
+//					ses.setAttribute("total", String.valueOf(total));
 				}
 			}
+			ses.setAttribute("cart", list);
 			return "redirect:/home";
 		} else if (employee != null) {
 			model.addAttribute("user", employee);
@@ -120,10 +124,10 @@ public class LoginController {
 		}
 	}
 
-	public Double total(List<Monhang> list) {
+	public Double total(List<monhang2> list) {
 		double sum = 0;
-		for (Monhang monhang : list) {
-			sum += monhang.getDongia() * monhang.getSoluong();
+		for (monhang2 monhang : list) {
+			sum += monhang.getSoluong() * monhang.getProducts().getPrice();
 		}
 		return sum;
 	}

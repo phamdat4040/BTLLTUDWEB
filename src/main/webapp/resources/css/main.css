@@ -1934,19 +1934,29 @@ input.num-product::-webkit-inner-spin-button {
 .table-shopping-cart .column-3 {
   width: 120px;
   font-size: 16px;
+  text-align: center;
 }
 
 .table-shopping-cart .column-4 {
   width: 145px;
-  text-align: right;
+  text-align: center;
 }
 
 .table-shopping-cart .column-5 {
-  width: 172px;
-  padding-right: 50px;
-  text-align: right;
+  width: 130px;
+  
+  text-align: center;
   font-size: 16px;
 }
+
+.table-shopping-cart .column-6 button{
+  width: 190px;
+  margin-right: 20px;
+  text-align: center;
+  font-size: 16px;
+}
+
+
 
 .table-shopping-cart .table_row {
   height: 185px;

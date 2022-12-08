@@ -77,7 +77,9 @@
 							<div class="wrap-slick3-dots"></div>
 							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 							<div class="wrap-pic-w pos-relative">
-								<img id="img" src="<c:url value='/resources/images/${p.image }'/>" alt="IMG-PRODUCT" height="500px" width="500px">
+								<img id="img"
+									src="<c:url value='/resources/images/${p.image }'/>"
+									alt="IMG-PRODUCT" height="500px" width="500px">
 							</div>
 						</div>
 					</div>
@@ -94,12 +96,12 @@
 						<!--  -->
 						<div class="p-t-33">
 							<div class="alert alert-warning" id="alertSize" role="alert"
-							style="text-align: center; display: none; margin-left: 105px">Choose
-							Size !!</div>
+								style="text-align: center; display: none; margin-left: 105px">Choose
+								Size !!</div>
 							<div class="flex-w flex-r-m p-b-10">
-							
+
 								<div class="size-203 flex-c-m respon6">Size</div>
-								
+
 								<div class="size-204 respon6-next">
 									<div class="rs1-select2 bor8 bg0">
 										<select class="js-select2" id="size">
@@ -114,11 +116,11 @@
 								</div>
 							</div>
 
-							<div class="alert alert-warning" id="alertColor"
-								role="alert" style="text-align: center; display: none; margin-left: 105px">
+							<div class="alert alert-warning" id="alertColor" role="alert"
+								style="text-align: center; display: none; margin-left: 105px">
 								Choose Color !!</div>
 							<div class="flex-w flex-r-m p-b-10">
-								
+
 								<div class="size-203 flex-c-m respon6">Color</div>
 
 								<div class="size-204 respon6-next">
@@ -457,6 +459,7 @@
 			                	else{
 			                		var data = document.getElementById("cart");
 			                		var total = document.getElementById("total");
+			                		var numcart = document.getElementById("lblCartCount");
 			                		document.getElementById("alertColor").style.display = "none";
 			                		var co = size.selectedIndex;
 			                        var mau = color.selectedIndex;
@@ -470,15 +473,15 @@
 			                	        	pid: ${p.id}
 			                	        },
 			                	        url: "http://localhost:8080/BTLLTUDWEB/add",
-			                	         success: function(res) {
+			                	        success: function(res) {
 			                	        	 
 			                	        	 if(res != ""){
 			                	 	        		var tam = "";
 			                	 	        		res = res.substr(0, res.length - 1);
 			                	 		            var str = res.split(":");
-			                	 		            total.innerHTML = "Total: $"+str[str.length-1];
+			                	 		            total.innerHTML = "Total: $"+str[str.length-2];
 			                	        			for(let stringg of str){
-			                	        				if(stringg != str[str.length-1]){
+			                	        				if(stringg != str[str.length-2] && stringg != str[str.length-1] ){
 			                	        					var pro = stringg.split(",");
 				                	 		            	tam +="<li class=\"header-cart-item flex-w flex-t m-b-12\">\r\n"
 				                	 		           		+ "					<div class=\"header-cart-item-img\">\r\n"
@@ -499,10 +502,10 @@
 			                	 		            	
 			                	 		            }
 			                	        			data.innerHTML = tam;
-			                	        			
+			                	        			numcart.innerHTML ="<span class='badge badge-warning' id='lblCartCount'>"+str[str.length-1]+"</span>";
 			                	 	        	}
 			                	        	 swal(nameProduct, "is added to cart !" + $(".num-product").val(), "success");
-			                	    	},
+			                	    	}, 
 			                			error: function(xhr){
 			                				alert("Loi");
 			                			}
@@ -518,6 +521,20 @@
 			    		}
 					});
 				});
+		
+		$(".btn-num-product-down").click(function(){
+			
+			var sl = parseInt(document.getElementById("num-product").value);
+			sl = sl-1;
+			document.getElementById("num-product").value = sl.toString(10);
+			
+		});
+		
+		$(".btn-num-product-up").click(function(){
+			var sl = parseInt(document.getElementById("num-product").value);
+			sl = sl+1;
+			document.getElementById("num-product").value = sl.toString(10);
+		});
 	</script>
 	<!--===============================================================================================-->
 	<script
