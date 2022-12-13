@@ -17,24 +17,6 @@
 			</div>
 
 			<div class="col-sm-6 col-lg-3 p-b-50">
-				<h4 class="stext-301 cl0 p-b-30">Help</h4>
-
-				<ul>
-					<li class="p-b-10"><a href="#"
-						class="stext-107 cl7 hov-cl1 trans-04"> Track Order </a></li>
-
-					<li class="p-b-10"><a href="#"
-						class="stext-107 cl7 hov-cl1 trans-04"> Returns </a></li>
-
-					<li class="p-b-10"><a href="#"
-						class="stext-107 cl7 hov-cl1 trans-04"> Shipping </a></li>
-
-					<li class="p-b-10"><a href="#"
-						class="stext-107 cl7 hov-cl1 trans-04"> FAQs </a></li>
-				</ul>
-			</div>
-
-			<div class="col-sm-6 col-lg-3 p-b-50">
 				<h4 class="stext-301 cl0 p-b-30">GET IN TOUCH</h4>
 
 				<p class="stext-107 cl7 size-201">
