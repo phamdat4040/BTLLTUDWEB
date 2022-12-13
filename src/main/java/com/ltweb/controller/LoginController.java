@@ -84,7 +84,7 @@ public class LoginController {
 		
 		customers customer = customersService.getCustomersByUsername(authentication.getName());
 		employees employee = employService.getEmployee(authentication.getName());
-		if (customer != null) {
+		if (employee == null) {
 			String string = "";
 			model.addAttribute("user", customer);
 			Cookie[] cookies = request.getCookies();
@@ -116,13 +116,10 @@ public class LoginController {
 			}
 			ses.setAttribute("cart", list);
 			return "redirect:/product";
-		} else if (employee != null) {
+		} else {
 			model.addAttribute("user", employee);
 			return "redirect:/adminhome";
-		} else {
-			model.addAttribute("c", new customers());
-			return "user/Login";
-		}
+		} 
 	}
 
 	public Double total(List<monhang2> list) {
