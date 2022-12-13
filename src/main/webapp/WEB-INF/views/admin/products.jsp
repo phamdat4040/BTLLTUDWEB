@@ -57,8 +57,7 @@
 											style="color: white">${listP.description }</a></td>
 										<td><a href="edit_product?pid=${listP.id }"
 											style="color: white">${listP.price }</a></td>
-										<td><img
-											src="<c:url value="/resources/img/${listP.image }"/>"
+										<td><img src="${listP.image }"
 											style="width: 50px; height: 50px; margin-left: 10px"></td>
 										<td><a href="delProduct?pid=${listP.id }"
 											class="tm-product-delete-link"> <i

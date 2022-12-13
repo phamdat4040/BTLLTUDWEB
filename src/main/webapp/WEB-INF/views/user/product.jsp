@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +8,8 @@
 <title>Product</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <!--===============================================================================================-->
 <link rel="icon" type="image/png"
 	href="<c:url value='/resources/images/icons/favicon.png'/>" />
@@ -70,8 +72,8 @@
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<button
-						class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" id="all"
-						onclick="change()">All Products</button>
+						class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1"
+						id="all" onclick="change()">All Products</button>
 
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
 						id="women" onclick="loadProductByGender(this.id)">Women</button>
@@ -224,7 +226,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="col-sm-12">
 				<div class="row" id="data">
 					<c:forEach var="s" items="${listP }">
@@ -233,13 +235,13 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-pic hov-img0">
-									<a href="detail?pid=${s.id }"><img src="<c:url value='/resources/images/${s.image }'/>"
+									<a href="detail?pid=${s.id }"><img src="${s.image }"
 										alt="IMG-PRODUCT"></a>
 								</div>
 
 								<div class="block2-txt flex-w flex-t p-t-14">
 									<div class="block2-txt-child1 flex-col-l ">
-										<a href="detail" id="${s.id }"
+										<a href="detail?pid=${s.id }"
 											class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 											${s.name } </a> <span class="stext-105 cl3"> $${s.price }
 										</span>
@@ -265,7 +267,8 @@
 			<div class="flex-c-m flex-w w-full p-t-45">
 				<a onclick="loadMore(this.id)" type="button" id="loadmore"
 					class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-					<button>Load More </button></a>
+					<button>Load More</button>
+				</a>
 			</div>
 		</div>
 	</div>
