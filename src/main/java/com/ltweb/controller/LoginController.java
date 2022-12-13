@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,10 +80,10 @@ public class LoginController {
 	}
 
 	@PostMapping("/checkLogin")
-	public String checkLogin(@RequestParam("uname") String uname, @RequestParam("pass") String pass, Model model,
-			HttpServletRequest request, HttpSession ses) {
-		customers customer = customersService.getCustomersByUsername(uname, pass);
-		employees employee = employService.getEmployee(uname, pass);
+	public String checkLogin(Model model, HttpSession ses, Authentication authentication, HttpServletRequest request) {
+		
+		customers customer = customersService.getCustomersByUsername(authentication.getName());
+		employees employee = employService.getEmployee(authentication.getName());
 		if (customer != null) {
 			String string = "";
 			model.addAttribute("user", customer);
@@ -114,7 +115,7 @@ public class LoginController {
 				}
 			}
 			ses.setAttribute("cart", list);
-			return "redirect:/home";
+			return "redirect:/product";
 		} else if (employee != null) {
 			model.addAttribute("user", employee);
 			return "redirect:/adminhome";

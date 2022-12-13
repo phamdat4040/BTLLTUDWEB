@@ -62,7 +62,7 @@
 	<!-- Cart -->
 	<%@ include file="/WEB-INF/views/user/cart.jsp"%>
 
-
+	
 
 	<!-- Product -->
 	<div class="bg0 m-t-23 p-b-140">

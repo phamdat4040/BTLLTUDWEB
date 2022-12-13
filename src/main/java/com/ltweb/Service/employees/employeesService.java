@@ -8,5 +8,5 @@ public interface employeesService {
 
 	List<employees> list();
 
-	employees getEmployee(String user, String pass);
+	employees getEmployee(String user);
 }

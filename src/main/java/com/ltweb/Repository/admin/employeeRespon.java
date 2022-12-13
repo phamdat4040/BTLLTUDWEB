@@ -8,6 +8,6 @@ public interface employeeRespon {
 
 	public List<employees> list();
 
-	public employees getEmloyees(String user, String pass);
+	public employees getEmloyees(String user);
 
 }

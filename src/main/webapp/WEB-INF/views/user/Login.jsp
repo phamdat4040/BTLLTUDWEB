@@ -54,15 +54,15 @@
 									</p>
 								</div>
 							</div>
-							<form action="checkLogin" class="signin-form" method="post">
+							<form action="${pageContext.request.contextPath}/j_spring_security_check" class="signin-form" method="post">
 								<div class="form-group mb-3">
 									<label class="label">Username</label> <input
-										type="text" name="uname" class="form-control"
+										type="text" name="username" class="form-control"
 										placeholder="Username" required>
 								</div>
 								<div class="form-group mb-3">
 									<label class="label">Password</label> <input
-										type="password" name="pass" class="form-control"
+										type="password" name="password" class="form-control"
 										placeholder="Password" required>
 								</div>
 								<div class="form-group">

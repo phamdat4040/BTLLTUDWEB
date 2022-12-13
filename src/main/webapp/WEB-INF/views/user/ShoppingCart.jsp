@@ -104,7 +104,6 @@
 													id="num${s.products.id}${s.product_Size.id }${s.product_Color.id }"
 													class="mtext-104 cl3 txt-center num-product" type="number"
 													value="${s.soluong }">
-
 												<div
 													class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"
 													onclick="cong(${s.products.id}, ${s.product_Size.id }, ${s.product_Color.id }, $('#num'+${s.products.id }+${s.product_Size.id }+${s.product_Color.id }).val())">

@@ -7,6 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.annotations.common.util.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,10 +79,11 @@ public class UserController {
 	}
 
 	@GetMapping("/detail")
-	public ModelAndView detail(@RequestParam("pid") int pid) {
+	public ModelAndView detail(@RequestParam("pid") int pid, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("user/Detail");
 		products products = productsService.getProductById(pid);
-		modelAndView.addObject("p", products);
+		session.setAttribute("p", products);
+		session.setAttribute("cid", pid);
 		return modelAndView;
 	}
 
