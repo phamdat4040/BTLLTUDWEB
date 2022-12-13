@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <div class="wrap-header-cart js-panel-cart">
 	<div class="s-full js-hide-cart"></div>
 
@@ -23,7 +25,10 @@
 							<div class="header-cart-item-txt p-t-8">
 								<a href="#"
 									class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-									${s.products.name } </a> <span class="header-cart-item-info">
+									${s.products.name } </a> 
+									<span class="header-cart-item-info">
+									${s.product_Size.sizeName } - ${s.product_Color.colorName } </span>
+									<span class="header-cart-item-info">
 									${s.soluong } x ${s.products.price } </span>
 							</div>
 						</li>
@@ -35,7 +40,7 @@
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
-						<a href="shoping-cart.html"
+						<a href="shoping-cart"
 							class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 							View Cart </a> <a href="shoping-cart.html"
 							class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">

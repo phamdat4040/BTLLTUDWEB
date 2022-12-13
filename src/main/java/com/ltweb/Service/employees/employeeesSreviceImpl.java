@@ -23,8 +23,8 @@ public class employeeesSreviceImpl implements employeesService {
 	}
 
 	@Override
-	public employees getEmployee(String user, String pass) {
-		return emplRes.getEmloyees(user, pass);
+	public employees getEmployee(String user) {
+		return emplRes.getEmloyees(user);
 	}
 
 }

@@ -58,15 +58,10 @@
 							<textarea class="form-control validate tm-small" rows="5"
 								name="description" required>${product.description}</textarea>
 						</div>
-						<div class="form-group ">
-							<label for="category">Category</label> <select
-								class="custom-select tm-select-accounts" id="category"
-								name="category">
-								<c:forEach items="${listCate }" var="listCate">
-									<c:if test=""></c:if>
-									<option selected>${listCate.name }</option>
-								</c:forEach>
-							</select>
+						<div class="form-group">
+							<label for="category">Gender</label><input id="gender"
+								name="gender" readonly value="${product.gender }"
+								class="form-control validate" />
 						</div>
 						<div class="form-group ">
 							<label for="price">Price</label> <input id="price" name="price"
@@ -112,8 +107,6 @@
 				</form>
 			</div>
 		</div>
-	</div>
-	</div>
 	</div>
 	<%@ include file="/WEB-INF/views/admin/Footer.jsp"%>
 

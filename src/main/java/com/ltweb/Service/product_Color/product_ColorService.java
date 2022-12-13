@@ -4,4 +4,5 @@ import com.ltweb.entity.product_Color;
 
 public interface product_ColorService {
 	public product_Color getProduct_ColorById(int id);
+	public product_Color getProduct_ColorByName(String name);
 }

@@ -1,379 +1,575 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JSP Page</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+<title>Shop Detail</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png"
+	href="<c:url value='/resources/images/icons/favicon.png'/>" />
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-	rel="stylesheet"
-	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-	crossorigin="anonymous">
-<link href="<c:url value="/resources/css/styleDetail.css"/>"
-	rel="stylesheet" type="text/css" />
-<style>
-#snackbar {
-	visibility: hidden;
-	width: 350px;
-	height: 120px;
-	margin-left: -125px;
-	text-align: center;
-	border-radius: 5px;
-	border: 1px solid black;
-	padding: 16px;
-	position: fixed;
-	z-index: 1000;
-	left: 50%;
-	bottom: 300px;
-	font-size: 20px;
-	background: #339933;
-}
-
-#snackbar.show {
-	visibility: visible;
-	-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-	animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-.gallery-wrap .img-big-wrap img {
-	height: 450px;
-	width: auto;
-	display: inline-block;
-	cursor: zoom-in;
-}
-
-.gallery-wrap .img-small-wrap .item-gallery {
-	width: 60px;
-	height: 60px;
-	border: 1px solid #ddd;
-	margin: 7px 2px;
-	display: inline-block;
-	overflow: hidden;
-}
-
-.gallery-wrap .img-small-wrap {
-	text-align: center;
-}
-
-.gallery-wrap .img-small-wrap img {
-	max-width: 100%;
-	max-height: 100%;
-	object-fit: cover;
-	border-radius: 4px;
-	cursor: zoom-in;
-}
-
-.img-big-wrap img {
-	width: 100% !important;
-	height: auto !important;
-}
-
-* {
-	margin: 0;
-	padding: 0;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-a {
-	color: #03658c;
-	text-decoration: none;
-}
-
-ul {
-	list-style-type: none;
-}
-
-body {
-	font-family: 'Roboto', Arial, Helvetica, Sans-serif, Verdana;
-	background: #dee1e3;
-}
-</style>
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/vendor/bootstrap/css/bootstrap.min.css'/>">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css'/>">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/fonts/iconic/css/material-design-iconic-font.min.css'/>">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/fonts/linearicons-v1.0.0/icon-font.min.css'/>">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/vendor/animate/animate.css'/>">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/vendor/css-hamburgers/hamburgers.min.css'/>">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/vendor/animsition/css/animsition.min.css'/>">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/vendor/select2/select2.min.css'/>">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/vendor/perfect-scrollbar/perfect-scrollbar.css'/>">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/util.css'/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/main.css'/>">
+<!--===============================================================================================-->
 </head>
-<body>
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-		<div class="container">
-			<a class="navbar-brand" href="home">Shoes</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarsExampleDefault"
-				aria-controls="navbarsExampleDefault" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+<body class="animsition">
 
-			<div class="collapse navbar-collapse justify-content-end"
-				id="navbarsExampleDefault">
-				<ul class="navbar-nav m-auto">
-					<c:if test="${user.username == 'admin' }">
-						<li class="nav-item"><a class="nav-link" href="#">Manager
-								Account</a></li>
-					</c:if>
+	<!-- Header -->
+	<%@ include file="/WEB-INF/views/user/header.jsp"%>
 
-					<c:if test="${user != null }">
-						<li class="nav-item"><a class="nav-link" href="#">Hello
-								${user.username}</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="dangxuat/logout">Logout</a></li>
-					</c:if>
-					<c:if test="${user == null }">
-						<li class="nav-item"><a class="nav-link" href="login">Login</a>
-						</li>
-					</c:if>
-				</ul>
+	<!-- Cart -->
+	<%@ include file="/WEB-INF/views/user/cart.jsp"%>
 
-				<form action="search" method="get" class="form-inline my-2 my-lg-0">
-					<div class="input-group input-group-sm">
-						<input name="txt" type="text" class="form-control"
-							aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-							placeholder="Search...">
-						<div class="input-group-append">
-							<button type="submit" class="btn btn-secondary btn-number">
-								<i class="fa fa-search"></i>
-							</button>
-						</div>
-					</div>
-					<a class="btn btn-success btn-sm ml-3" href="showCart"> <i
-						class="fa fa-shopping-cart"></i> Cart <span
-						class="badge badge-light">3</span>
-					</a>
-				</form>
-			</div>
-		</div>
-	</nav>
+
+	<!-- breadcrumb -->
 	<div class="container">
-		<div class="row">
-			<div class="col-sm-3">
-				<div class="card bg-light mb-3">
-					<div class="card-header bg-primary text-white text-uppercase">
-						<i class="fa fa-list"></i> Categories
-					</div>
-					<ul class="list-group category_block">
-						<c:forEach items="${listC}" var="o">
-							<li class="list-group-item text-white"><a href="#">${o.name}</a></li>
-						</c:forEach>
-					</ul>
-				</div>
-				<div class="card bg-light mb-3">
-					<div class="card-header bg-success text-white text-uppercase">Last
-						product</div>
-					<div class="card-body">
-						<img class="img-fluid"
-							src="<c:url value="/resources/img/${last.image}"/>" />
-						<h5 class="card-title">${last.name}</h5>
-						<p class="card-text">${last.description}</p>
-						<p class="bloc_left_price">${last.price}$</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-9">
-				<div class="container">
-					<div class="card">
-						<div class="row">
-							<aside class="col-sm-5 border-right">
-								<article class="gallery-wrap">
-									<div class="img-big-wrap">
-										<div>
-											<a href="#"><img class="card-img-top"
-												src="<c:url value='/resources/img/${p.image}'/>"
-												alt="Card image cap"></a>
-										</div>
-									</div>
-									<!-- slider-product.// -->
-									<div class="img-small-wrap">
-										<c:forEach var="s" items="${listimage }">
-											<div class="item-gallery">
-												<a href="#"><img class="card-img-top"
-													src="<c:url value='/resources/images/${s.name}'/>"
-													alt="Card image cap"></a>
-											</div>
-										</c:forEach>
-									</div>
-									<!-- slider-nav.// -->
-								</article>
-								<!-- gallery-wrap .end// -->
-							</aside>
-							<aside class="col-sm-7">
-								<article class="card-body p-5">
-									<h3 class="title mb-3">${p.name}</h3>
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="index.html" class="stext-109 cl8 hov-cl1 trans-04"> Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a> <a href="product.html" class="stext-109 cl8 hov-cl1 trans-04">
+				Men <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a> <span class="stext-109 cl4"> Lightweight Jacket </span>
+		</div>
+	</div>
 
-									<p class="price-detail-wrap">
-										<span class="price h3 text-warning"> <span class="num">${p.price}$</span>
-										</span>
-										<!--<span>/per kg</span>-->
-									</p>
-									<!-- price-detail-wrap .// -->
-									<dl class="item-property">
-										<dt>Description</dt>
-										<dd>
-											<p>${p.description}</p>
-										</dd>
-									</dl>
-									<hr>
-									<form>
-										<div class="row">
-											<div class="col-sm-5">
-												<dl class="param param-inline">
-													<dt>Quantity:</dt>
-													<dd>
-														<input type="number" id="quantity" name="quantity" min="1"
-															max="5" value="1">
-													</dd>
-												</dl>
-												<!-- item-property .// -->
-											</div>
-										</div>
-										<!-- row.// -->
-										<div class="row">
-											<div class="col-sm-8">
-												<div class="alert alert-warning" id="alertSize" role="alert"
-													style="text-align: center; display: none;">Choose
-													Size !!</div>
-												<dl class="param param-inline">
-													<dt>Size:</dt>
-													<dd>
-														<input type="radio" id="size" name="size" value="XS">
-														<label for="XS" style="margin-right: 10px">XS</label> <input
-															type="radio" id="size" name="size" value="S"> <label
-															for="S" style="margin-right: 10px">S</label> <input
-															type="radio" id="size" name="size" value="M"> <label
-															for="M" style="margin-right: 10px">M</label> <input
-															type="radio" id="size" name="size" value="L"> <label
-															for="L" style="margin-right: 10px">L</label> <input
-															type="radio" id="size" name="size" value="XL"> <label
-															for="XL">XL</label>
-													</dd>
-												</dl>
-												<!-- item-property .// -->
-											</div>
-											<!-- col.// -->
-										</div>
-										<!-- row.// -->
-										<div class="row">
-											<div class="col-sm-6">
-												<div class="alert alert-warning" id="alertColor"
-													role="alert" style="text-align: center; display: none;">
-													Choose Color !!</div>
-												<dl class="param param-inline">
-													<dt>Color:</dt>
-													<dd>
-														<input type="radio" id="color" name="color" value="Black">
-														<label for="black" style="margin-right: 6px">Black</label>
-														<input type="radio" id="color" name="color" value="White">
-														<label for="white" style="margin-right: 6px">White</label>
-													</dd>
-												</dl>
-												<!-- item-property .// -->
-											</div>
-											<!-- col.// -->
-										</div>
-										<!-- row.// -->
-									</form>
 
-									<hr>
-									<a class="btn btn-lg btn-primary text-uppercase">Buy now</a> <a
-										class="btn btn-lg btn-outline-primary text-uppercase"
-										onclick="addItems()"> <i class="fas fa-shopping-cart"></i>
-										Add to cart
-									</a>
-								</article>
-								<!-- card-body.// -->
-							</aside>
-							<!-- col.// -->
+	<!-- Product Detail -->
+	<section class="sec-product-detail bg0 p-t-65 p-b-60">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-7 p-b-30">
+					<div class="p-l-25 p-r-30 p-lr-0-lg">
+						<div class="wrap-slick3 flex-sb flex-w">
+							<div class="wrap-slick3-dots"></div>
+							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+							<div class="wrap-pic-w pos-relative">
+								<img id="img"
+									src="<c:url value='/resources/images/${p.image }'/>"
+									alt="IMG-PRODUCT" height="500px" width="500px">
+							</div>
 						</div>
-						<!-- row.// -->
 					</div>
-					<!-- card.// -->
+				</div>
 
+				<div class="col-md-6 col-lg-5 p-b-30">
+					<div class="p-r-50 p-t-5 p-lr-0-lg">
+						<h4 class="mtext-105 cl2 js-name-detail p-b-14">${p.name }</h4>
 
+						<span class="mtext-106 cl2"> $${p.price }</span>
+
+						<p class="stext-102 cl3 p-t-23">${p.description }</p>
+
+						<!--  -->
+						<div class="p-t-33">
+							<div class="alert alert-warning" id="alertSize" role="alert"
+								style="text-align: center; display: none; margin-left: 105px">Choose
+								Size !!</div>
+							<div class="flex-w flex-r-m p-b-10">
+
+								<div class="size-203 flex-c-m respon6">Size</div>
+
+								<div class="size-204 respon6-next">
+									<div class="rs1-select2 bor8 bg0">
+										<select class="js-select2" id="size">
+											<option>Choose an option</option>
+											<option>Size S</option>
+											<option>Size M</option>
+											<option>Size L</option>
+											<option>Size XL</option>
+										</select>
+										<div class="dropDownSelect2"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="alert alert-warning" id="alertColor" role="alert"
+								style="text-align: center; display: none; margin-left: 105px">
+								Choose Color !!</div>
+							<div class="flex-w flex-r-m p-b-10">
+
+								<div class="size-203 flex-c-m respon6">Color</div>
+
+								<div class="size-204 respon6-next">
+									<div class="rs1-select2 bor8 bg0">
+										<select class="js-select2" id="color">
+											<option>Choose an option</option>
+											<option>Black</option>
+											<option>White</option>
+										</select>
+										<div class="dropDownSelect2"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="flex-w flex-r-m p-b-10">
+								<div class="size-204 flex-w flex-m respon6-next">
+									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+										<div
+											class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+											<i class="fs-16 zmdi zmdi-minus"></i>
+										</div>
+
+										<input class="mtext-104 cl3 txt-center num-product"
+											type="number" name="num-product" id="num-product" value="1">
+
+										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+											<i class="fs-16 zmdi zmdi-plus"></i>
+										</div>
+									</div>
+
+									<button
+										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+										Add to cart</button>
+								</div>
+							</div>
+						</div>
+
+						<!--  -->
+						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
+							<div class="flex-m bor9 p-r-10 m-r-11">
+								<a href="#"
+									class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+									data-tooltip="Add to Wishlist"> <i
+									class="zmdi zmdi-favorite"></i>
+								</a>
+							</div>
+
+							<a href="#"
+								class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+								data-tooltip="Facebook"> <i class="fa fa-facebook"></i>
+							</a> <a href="#"
+								class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+								data-tooltip="Twitter"> <i class="fa fa-twitter"></i>
+							</a> <a href="#"
+								class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+								data-tooltip="Google Plus"> <i class="fa fa-google-plus"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bor10 m-t-50 p-t-43 p-b-40">
+				<!-- Tab01 -->
+				<div class="tab01">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item p-b-10"><a class="nav-link active"
+							data-toggle="tab" href="#description" role="tab">Description</a>
+						</li>
+
+						<li class="nav-item p-b-10"><a class="nav-link"
+							data-toggle="tab" href="#information" role="tab">Additional
+								information</a></li>
+
+						<li class="nav-item p-b-10"><a class="nav-link"
+							data-toggle="tab" href="#reviews" role="tab">Reviews</a></li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content p-t-43">
+						<!-- - -->
+						<div class="tab-pane fade show active" id="description"
+							role="tabpanel">
+							<div class="how-pos2 p-lr-15-md">
+								<p class="stext-102 cl6">Aenean sit amet gravida nisi. Nam
+									fermentum est felis, quis feugiat nunc fringilla sit amet. Ut
+									in blandit ipsum. Quisque luctus dui at ante aliquet, in
+									hendrerit lectus interdum. Morbi elementum sapien rhoncus
+									pretium maximus. Nulla lectus enim, cursus et elementum sed,
+									sodales vitae eros. Ut ex quam, porta consequat interdum in,
+									faucibus eu velit. Quisque rhoncus ex ac libero varius
+									molestie. Aenean tempor sit amet orci nec iaculis. Cras sit
+									amet nulla libero. Curabitur dignissim, nunc nec laoreet
+									consequat, purus nunc porta lacus, vel efficitur tellus augue
+									in ipsum. Cras in arcu sed metus rutrum iaculis. Nulla non
+									tempor erat. Duis in egestas nunc.</p>
+							</div>
+						</div>
+
+						<!-- - -->
+						<div class="tab-pane fade" id="information" role="tabpanel">
+							<div class="row">
+								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+									<ul class="p-lr-28 p-lr-15-sm">
+										<li class="flex-w flex-t p-b-7"><span
+											class="stext-102 cl3 size-205"> Weight </span> <span
+											class="stext-102 cl6 size-206"> 0.79 kg </span></li>
+
+										<li class="flex-w flex-t p-b-7"><span
+											class="stext-102 cl3 size-205"> Dimensions </span> <span
+											class="stext-102 cl6 size-206"> 110 x 33 x 100 cm </span></li>
+
+										<li class="flex-w flex-t p-b-7"><span
+											class="stext-102 cl3 size-205"> Materials </span> <span
+											class="stext-102 cl6 size-206"> 60% cotton </span></li>
+
+										<li class="flex-w flex-t p-b-7"><span
+											class="stext-102 cl3 size-205"> Color </span> <span
+											class="stext-102 cl6 size-206"> Black, Blue, Grey,
+												Green, Red, White </span></li>
+
+										<li class="flex-w flex-t p-b-7"><span
+											class="stext-102 cl3 size-205"> Size </span> <span
+											class="stext-102 cl6 size-206"> XL, L, M, S </span></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- - -->
+						<div class="tab-pane fade" id="reviews" role="tabpanel">
+							<div class="row">
+								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+									<div class="p-b-30 m-lr-15-sm" id="rv">
+									</div>
+									<!-- Add review -->
+										<div class="w-full">
+											<h5 class="mtext-108 cl2 p-b-7">Add a review</h5>
+											<div class="row p-b-25">
+												<div class="col-12 p-b-5">
+													<textarea
+														class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"
+														id="review" name="review"></textarea>
+												</div>
+											</div>
+
+											<button id="sendMessage" onclick="sendMessage(document.getElementById('u').value);"
+												class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+												Submit</button>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="bg-success text-white" id="snackbar">
-		<div>
-			<i class="fa fa-check-circle"></i>
+		<div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
+			<span class="stext-107 cl6 p-lr-25"> SKU: JAK-01 </span> <span
+				class="stext-107 cl6 p-lr-25"> Categories: Jacket, Men </span>
 		</div>
-		<strong>Đã thêm sản phẩm vào giỏ hàng</strong>
+	</section>
+	<input value="${user.lastname} ${user.firstname}" id="u" hidden="true">
+	
+	<!-- Footer -->
+	<%@include file="/WEB-INF/views/user/footer.jsp"%>
+
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top"> <i
+			class="zmdi zmdi-chevron-up"></i>
+		</span>
 	</div>
-	<script type="text/javascript">
-    	var mau = -1, co = -1, dem = 0;
-    	function addItems(){
-    		if(${user != null}){
-    			var quantity = document.getElementById("quantity").value;
-                var size = document.getElementsByName("size");
-                for (var i = 0; i < size.length; i++){
-                    if (size[i].checked === true){
-                        co = i;
-                        break;
-                    }
-                }
-                var color = document.getElementsByName("color");
-                for (var i = 0; i < color.length; i++){
-                    if (color[i].checked === true){
-                        mau = i;
-                        break;
-                    }
-                }
-                if(co == -1){
-                	document.getElementById("alertSize").style.display = "inline-block";
-                }
-                else{
-                	document.getElementById("alertSize").style.display = "none";
-                	if(mau == -1){
-                		document.getElementById("alertColor").style.display = "inline-block";
-                	}
-                	else{
-                		document.getElementById("alertColor").style.display = "none";
-                		mau = mau +1;
-                        co = co + 1;
-                        $.ajax({
-                			type: "POST",
-                	        data:{
-                	        	quantity: quantity,
-                	        	co: co,
-                	        	mau: mau,
-                	        	pid: ${p.id}
-                	        },
-                	        url: "http://localhost:8080/BTLLTUDWEB/add",
-                	         success: function(result) {
-                	        	 var x = document.getElementById("snackbar");
-                	    		  x.className = "show";
-                	    		  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-                	    	},
-                			error: function(xhr){
-                				alert("Loi");
-                			}
-                		});
-                	}
-                }
-                
-    		}
-    		else{
-    			window.location="http://localhost:8080/BTLLTUDWEB/login/dangnhap";
-    		}
-    	}
-    </script>
+	
+	<!--===============================================================================================-->
+	<script
+		src="<c:url value='/resources/vendor/jquery/jquery-3.2.1.min.js'/>"></script>
+	<!--===============================================================================================-->
+	<script
+		src="<c:url value='/resources/vendor/animsition/js/animsition.min.js'/>"></script>
+	<!--===============================================================================================-->
+	<script src="<c:url value='/resources/vendor/bootstrap/js/popper.js'/>"></script>
+	<script
+		src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.min.js'/>"></script>
+	<!--===============================================================================================-->
+	<script src="<c:url value='/resources/vendor/select2/select2.min.js'/>"></script>
+	<script>
+		$(".js-select2").each(function() {
+			$(this).select2({
+				minimumResultsForSearch : 20,
+				dropdownParent : $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+	<!--===============================================================================================-->
+	<script
+		src="<c:url value='/resources/vendor/daterangepicker/moment.min.js'/>"></script>
+	<script
+		src="<c:url value='/resources/vendor/daterangepicker/daterangepicker.js'/>"></script>
+	<!--===============================================================================================-->
+	<script src="<c:url value='/resources/vendor/slick/slick.min.js'/>"></script>
+	<script src="<c:url value='/resources/js/slick-custom.js'/>"></script>
+	<!--===============================================================================================-->
+	<script
+		src="<c:url value='/resources/vendor/parallax100/parallax100.js'/>"></script>
+	<script>
+		$('.parallax100').parallax100();
+	</script>
+	<!--===============================================================================================-->
+	<script
+		src="<c:url value='/resources/vendor/MagnificPopup/jquery.magnific-popup.min.js'/>"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+				delegate : 'a', // the selector for gallery item
+				type : 'image',
+				gallery : {
+					enabled : true
+				},
+				mainClass : 'mfp-fade'
+			});
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script
+		src="<c:url value='/resources/vendor/isotope/isotope.pkgd.min.js'/>"></script>
+	<!--===============================================================================================-->
+	<script
+		src="<c:url value='/resources/vendor/sweetalert/sweetalert.min.js'/>"></script>
+	<script>
+		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e) {
+			e.preventDefault();
+		});
+
+		$('.js-addwish-b2').each(
+				function() {
+					var nameProduct = $(this).parent().parent().find(
+							'.js-name-b2').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						$(this).addClass('js-addedwish-b2');
+						$(this).off('click');
+					});
+				});
+
+		$('.js-addwish-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent().find(
+							'.js-name-detail').html();
+
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						$(this).addClass('js-addedwish-detail');
+						$(this).off('click');
+					});
+				});
+
+		/*---------------------------------------------*/
+
+		$('.js-addcart-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent()
+							.parent().find('.js-name-detail').html();
+					
+					$(this).on('click', function() {
+						
+						if(${user != null}){
+			    			
+			                var size = document.getElementById("size");
+			                var color = document.getElementById("color");
+			                if(size.options[size.selectedIndex].text == "Choose an option"){
+			                	document.getElementById("alertSize").style.display = "inline-block";
+			                	
+			                }
+			                else{
+			                	document.getElementById("alertSize").style.display = "none";
+			                	if(color.options[color.selectedIndex].text == "Choose an option"){
+			                		document.getElementById("alertColor").style.display = "inline-block";
+			                	}
+			                	else{
+			                		var data = document.getElementById("cart");
+			                		var total = document.getElementById("total");
+			                		var numcart = document.getElementById("lblCartCount");
+			                		document.getElementById("alertColor").style.display = "none";
+			                		var co = size.selectedIndex;
+			                        var mau = color.selectedIndex;
+			                        
+			                       	$.ajax({
+			                			type: "POST",
+			                	        data:{
+			                	        	quantity: $(".num-product").val(),
+			                	        	co: co+1,
+			                	        	mau: mau,
+			                	        	pid: ${p.id}
+			                	        },
+			                	        url: "http://localhost:8080/BTLLTUDWEB/add",
+			                	        success: function(res) {
+			                	        	 
+			                	        	 if(res != ""){
+			                	 	        		var tam = "";
+			                	 	        		res = res.substr(0, res.length - 1);
+			                	 		            var str = res.split(":");
+			                	 		            total.innerHTML = "Total: $"+str[str.length-2];
+			                	        			for(let stringg of str){
+			                	        				if(stringg != str[str.length-2] && stringg != str[str.length-1] ){
+			                	        					var pro = stringg.split(",");
+				                	 		            	tam +="<li class=\"header-cart-item flex-w flex-t m-b-12\">\r\n"
+				                	 		           		+ "					<div class=\"header-cart-item-img\">\r\n"
+					                	 		       		+ "						<img src=\"<c:url value='/resources/images/"+pro[0]+"'/>\"\r\n"
+					                	 		       		+ "							alt=\"IMG\">\r\n"
+					                	 		       		+ "					</div>\r\n"
+					                	 		       		+ "\r\n"
+					                	 		       		+ "					<div class=\"header-cart-item-txt p-t-8\">\r\n"
+					                	 		       		+ "						<a href=\"#\" class=\"header-cart-item-name m-b-18 hov-cl1 trans-04\">\r\n"
+					                	 		       		+ "							"+pro[1]+" </a>"
+					                	 		       		+"<span class=\"header-cart-item-info\">\r\n"
+					                	 					+ "									"+pro[4]+" - "+pro[5]+" </span>"
+					                	 		       		+" <span class=\"header-cart-item-info\"> "+pro[2]+"\r\n"
+					                	 		       		+ "							x $"+pro[3]+" </span>\r\n"
+					                	 		       		+ "					</div>\r\n"
+					                	 		       		+ "				</li>";
+			                	        				}
+			                	 		            	
+			                	 		            }
+			                	        			data.innerHTML = tam;
+			                	        			numcart.innerHTML ="<span class='badge badge-warning' id='lblCartCount'>"+str[str.length-1]+"</span>";
+			                	 	        	}
+			                	        	 swal(nameProduct, "is added to cart !" + $(".num-product").val(), "success");
+			                	    	}, 
+			                			error: function(xhr){
+			                				alert("Loi");
+			                			}
+			                		}); 
+			                        
+			                        
+			                	}
+			                }
+			                
+			    		}
+			    		else{
+			    			window.location="http://localhost:8080/BTLLTUDWEB/login/dangnhap";
+			    		}
+					});
+				});
+		
+		$(".btn-num-product-down").click(function(){
+			
+			var sl = parseInt(document.getElementById("num-product").value);
+			sl = sl-1;
+			document.getElementById("num-product").value = sl.toString(10);
+			
+		});
+		
+		$(".btn-num-product-up").click(function(){
+			var sl = parseInt(document.getElementById("num-product").value);
+			sl = sl+1;
+			document.getElementById("num-product").value = sl.toString(10);
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script
+		src="<c:url value='/resources/vendor/perfect-scrollbar/perfect-scrollbar.min.js'/>"></script>
+	<script>
+		$('.js-pscroll').each(function() {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed : 1,
+				scrollingThreshold : 1000,
+				wheelPropagation : false,
+			});
+
+			$(window).on('resize', function() {
+				ps.update();
+			})
+		});
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+    <script type="text/javascript">
+            var stompClient = null;
+            var privateStompClient = null;
+
+            var socket = new SockJS('/BTLLTUDWEB/ws');
+            stompClient = Stomp.over(socket);
+            
+            stompClient.connect({}, function(frame) {
+                console.log(frame);
+                stompClient.subscribe('/all/messages-'+${cid}, function(result) {
+                    show(JSON.parse(result.body));
+                });
+            });
+
+           /*  privateStompClient = Stomp.over(socket);
+            privateStompClient.connect({}, function(frame) {
+                    console.log(frame);
+                    privateStompClient.subscribe('/user/specific', function(result) {
+                    console.log(result.body)
+                        show(JSON.parse(result.body));
+                    });
+                }); */
+
+
+            function sendMessage(u) {
+            	
+                var text = document.getElementById('review').value;
+                stompClient.send("/app/application/"+${cid}, {},
+                  JSON.stringify({'text':text, 'from': u}));
+                document.getElementById('review').value = "";
+            }
+
+             /* function sendPrivateMessage() {
+                var text = document.getElementById('privateText').value;
+                var to = document.getElementById('to').value;
+                stompClient.send("/app/private", {},
+                  JSON.stringify({'text':text, 'to':to}));
+            } */
+
+            function show(message) {
+            	var response = document.getElementById('rv');
+                response.innerHTML += "<div class=\"flex-w flex-t p-b-68\">\r\n"
+                	+ "											<div class=\"wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6\">\r\n"
+                	+ "												<img src=\"images/avatar-01.jpg\" alt=\"AVATAR\">\r\n"
+                	+ "											</div>\r\n"
+                	+ "\r\n"
+                	+ "											<div class=\"size-207\">\r\n"
+                	+ "												<div class=\"flex-w flex-sb-m p-b-17\">\r\n"
+                	+ "													<span class=\"mtext-107 cl2 p-r-20\"> "+message.from+" </span> <span\r\n"
+                	+ "														class=\"fs-18 cl11\"> <i class=\"zmdi zmdi-star\"></i>\r\n"
+                	+ "														<i class=\"zmdi zmdi-star\"></i> <i class=\"zmdi zmdi-star\"></i>\r\n"
+                	+ "														<i class=\"zmdi zmdi-star\"></i> <i\r\n"
+                	+ "														class=\"zmdi zmdi-star-half\"></i>\r\n"
+                	+ "													</span>\r\n"
+                	+ "												</div>\r\n"
+                	+ "\r\n"
+                	+ "												<p class=\"stext-102 cl6\">"+message.text+"</p>\r\n"
+                	+ "											</div>\r\n"
+                	+ "										</div>\r\n";
+
+            }
+        </script>
+	<!--===============================================================================================-->
+	<script src="<c:url value='/resources/js/main.js'/>"></script>
+
+</body>
+
 </html>

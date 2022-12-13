@@ -85,12 +85,17 @@ public class AdminHomeController {
 		return "redirect:/products";
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@GetMapping("/adminaccounts")
 	public ModelAndView accouts() {
 		ModelAndView modelAndView = new ModelAndView("admin/accouts");
-		List<employees> listEmp = employeesService.list();
-		modelAndView.addObject("listEmp", listEmp);
+		employees empl = employeesService.getEmployee("admin");
 		List<customers> listCus = customersService.list();
+		boolean check = listCus.contains(empl);
+		if (check) {
+			int num = listCus.indexOf(empl);
+			listCus.remove(num);
+		}
 		modelAndView.addObject("listCus", listCus);
 		return modelAndView;
 	}

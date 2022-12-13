@@ -20,4 +20,12 @@ public class product_SizeRepoImpl implements product_SizeRepo {
 		return product_Size;
 	}
 
+	@Override
+	public product_Size getProduct_SizeByName(String name) {
+		product_Size product_Size = (product_Size) sessionFactory.getCurrentSession()
+				.createQuery("from product_Size where sizeName = :id", product_Size.class).setParameter("id", name)
+				.getSingleResult();
+		return product_Size;
+	}
+
 }

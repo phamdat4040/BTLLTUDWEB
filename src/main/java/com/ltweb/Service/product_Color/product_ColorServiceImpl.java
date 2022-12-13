@@ -20,4 +20,9 @@ public class product_ColorServiceImpl implements product_ColorService {
 		return product_ColorRepo.getProduct_ColorById(id);
 	}
 
+	@Override
+	public product_Color getProduct_ColorByName(String name) {
+		return product_ColorRepo.getProduct_ColorByName(name);
+	}
+
 }

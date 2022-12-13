@@ -23,11 +23,10 @@ public class employeesResponImpl implements employeeRespon {
 	}
 
 	@Override
-	public employees getEmloyees(String user, String pass) {
+	public employees getEmloyees(String user) {
 		try {
 			employees employee = (employees) sessionFactory.getCurrentSession()
-					.createQuery("from employees where username = :user and password = :pass")
-					.setParameter("user", user).setParameter("pass", pass).getSingleResult();
+					.createQuery("from customers where username = :user").setParameter("user", user).getSingleResult();
 			return employee;
 		} catch (Exception e) {
 			return null;
