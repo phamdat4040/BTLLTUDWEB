@@ -26,7 +26,7 @@ public class employeesResponImpl implements employeeRespon {
 	public employees getEmloyees(String user) {
 		try {
 			employees employee = (employees) sessionFactory.getCurrentSession()
-					.createQuery("from customers where username = :user").setParameter("user", user).getSingleResult();
+					.createQuery("from employees where username = :user").setParameter("user", user).getSingleResult();
 			return employee;
 		} catch (Exception e) {
 			return null;

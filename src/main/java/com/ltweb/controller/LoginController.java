@@ -114,7 +114,7 @@ public class LoginController {
 		} else {
 			model.addAttribute("user", employee);
 			return "redirect:/adminhome";
-		} 
+		}
 	}
 
 	public Double total(List<monhang2> list) {
